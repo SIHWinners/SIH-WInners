@@ -1,0 +1,15 @@
+To install these binaries:
+Copy the contents of share\extension 
+lib\ to lib  and bin\ to your PostgreSQL EDB 64-bit same named folders
+Make sure your version of PostgreSQL matches the version in the file name of this package
+e.g. use pg15 package for PostgreSQL 15
+
+
+Then in the database of your choice or via pgAdmin GUI install the extensions:
+
+
+CREATE EXTENSION IF NOT EXISTS h3;
+CREATE EXTENSION IF NOT EXISTS h3_postgis;
+
+
+These were built with mingw64

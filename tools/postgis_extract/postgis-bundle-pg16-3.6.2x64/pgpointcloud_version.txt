@@ -1,0 +1,6 @@
+POSTGIS POINTCLOUD: v1.2.5
+PostgreSQL: 16 w64
+Built: 20251120
+GIT_REPO: https://github.com/pgpointcloud/pointcloud.git
+GIT_BRANCH: * (HEAD detached at b5db45a)
+GIT_REVISION: HEAD detached at b5db45a

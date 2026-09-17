@@ -1,0 +1,21 @@
+-- Upgrade: 1.4.2 -> 1.5.0
+
+CREATE OR REPLACE FUNCTION g_spoint_distance(internal, spoint, smallint, oid, internal)
+   RETURNS internal
+   AS 'MODULE_PATHNAME', 'g_spoint_distance'
+   LANGUAGE 'c';
+
+DO $$
+BEGIN
+   ALTER OPERATOR FAMILY spoint USING gist ADD
+      FUNCTION  8 (spoint, spoint) g_spoint_distance (internal, spoint, smallint, oid, internal);
+EXCEPTION
+   WHEN duplicate_object THEN NULL;
+   WHEN OTHERS THEN RAISE;
+END;
+$$;
+
+CREATE FUNCTION reset_sphere_output_precision()
+   RETURNS CSTRING
+   AS 'MODULE_PATHNAME', 'reset_sphere_output_precision'
+   LANGUAGE 'c';

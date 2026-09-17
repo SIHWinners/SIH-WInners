@@ -1,0 +1,2 @@
+PGSPHERE VERSION: 1.5.2 https://github.com/postgrespro/pgsphere.git 36db9b9e084bb5933bf253f5d161299e54d36ca3
+USE_HEALPIX=0

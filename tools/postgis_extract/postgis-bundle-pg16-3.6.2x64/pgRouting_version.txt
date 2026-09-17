@@ -1,0 +1,5 @@
+pgRouting http://pgrouting.org : 4.0.1.0 ${GIT_COMMIT}
+PostgreSQL http://www.postgresql.org : 16 64 
+CGAL http://www.cgal.org : 5.0.3
+BOOST http://www.boost.org : 1.78.0
+Built: 20260218

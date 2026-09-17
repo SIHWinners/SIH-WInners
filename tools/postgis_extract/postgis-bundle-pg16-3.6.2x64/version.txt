@@ -1,0 +1,15 @@
+POSTGIS: 3.6.2 http://postgis.net/source
+CGAL VERSION: 6.0.1 http://www.cgal.org
+Boost VERSION: 1.78.0 http://www.boost.org
+GMP VERSION: 5.1.2 https://gmplib.org
+MPFR VERSION: 3.1.2 http://www.mpfr.org
+PROTOBUF VERSION: 3.2.0 https://github.com/google/protobuf
+PROTOBUF-C VERSION: 1.2.1 https://github.com/protobuf-c/protobuf-c
+CURL VERSION:  https://github.com/protobuf-c/protobuf-c
+GEOS VERSION: 3.14 https://github.com/libgeos/geos
+GDAL VERSION: 3.9.2 https://gdal.org/download.html#current-releases
+PROJ VERSION: 8.2.1 https://proj.org/download.html#current-release
+LIBICONV VERSION: 1.17 http://ftp.gnu.org/gnu/libiconv/libiconv-.tar.gz
+CGAL VERSION: 6.0.1 http://www.cgal.org
+BOOST VERSION: 1.78.0 http://www.boost.org
+SFCGAL VERSION: 2.2.0 http://www.sfcgal.org https://gitlab.com/sfcgal/SFCGAL

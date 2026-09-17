@@ -1,0 +1,33 @@
+2026-09-17 10:28:14.797 IST [19368] LOG:  starting PostgreSQL 16.10, compiled by Visual C++ build 1944, 64-bit
+2026-09-17 10:28:14.802 IST [19368] LOG:  listening on IPv6 address "::1", port 55432
+2026-09-17 10:28:14.802 IST [19368] LOG:  listening on IPv4 address "127.0.0.1", port 55432
+2026-09-17 10:28:14.864 IST [12456] LOG:  database system was interrupted; last known up at 2026-09-16 21:59:01 IST
+2026-09-17 10:28:17.033 IST [14732] FATAL:  the database system is starting up
+2026-09-17 10:28:17.209 IST [25372] FATAL:  the database system is starting up
+2026-09-17 10:28:17.387 IST [25696] FATAL:  the database system is starting up
+2026-09-17 10:28:17.557 IST [21484] FATAL:  the database system is starting up
+2026-09-17 10:28:17.681 IST [12456] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-09-17 10:28:17.688 IST [12456] LOG:  redo starts at 0/373D088
+2026-09-17 10:28:17.688 IST [12456] LOG:  invalid record length at 0/373D170: expected at least 24, got 0
+2026-09-17 10:28:17.688 IST [12456] LOG:  redo done at 0/373D138 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2026-09-17 10:28:17.696 IST [12452] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-09-17 10:28:17.713 IST [12452] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.004 s, total=0.019 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/373D170, redo lsn=0/373D170
+2026-09-17 10:28:17.738 IST [4272] FATAL:  the database system is not yet accepting connections
+2026-09-17 10:28:17.738 IST [4272] DETAIL:  Consistent recovery state has not been yet reached.
+2026-09-17 10:28:17.746 IST [19368] LOG:  database system is ready to accept connections
+2026-09-17 10:28:25.846 IST [25524] ERROR:  cannot drop table analytics_events_old because other objects depend on it
+2026-09-17 10:28:25.846 IST [25524] DETAIL:  default value for column id of table analytics_events depends on sequence analytics_events_id_seq
+	default value for column id of table analytics_events_default depends on sequence analytics_events_id_seq
+2026-09-17 10:28:25.846 IST [25524] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2026-09-17 10:28:25.846 IST [25524] STATEMENT:  DROP TABLE analytics_events_old;
+2026-09-17 10:28:44.172 IST [12524] ERROR:  audit_log is append-only
+2026-09-17 10:28:44.172 IST [12524] CONTEXT:  PL/pgSQL function sm_audit_append_only() line 7 at RAISE
+2026-09-17 10:28:44.172 IST [12524] STATEMENT:  UPDATE audit_log SET diff=$1::JSONB WHERE audit_log.seq = $2::INTEGER
+2026-09-17 10:29:01.256 IST [12264] ERROR:  audit_log is append-only
+2026-09-17 10:29:01.256 IST [12264] CONTEXT:  PL/pgSQL function sm_audit_append_only() line 7 at RAISE
+2026-09-17 10:29:01.256 IST [12264] STATEMENT:  UPDATE audit_log SET diff=$1::JSONB WHERE audit_log.seq = $2::INTEGER
+2026-09-17 10:29:13.912 IST [7988] ERROR:  audit_log is append-only
+2026-09-17 10:29:13.912 IST [7988] CONTEXT:  PL/pgSQL function sm_audit_append_only() line 7 at RAISE
+2026-09-17 10:29:13.912 IST [7988] STATEMENT:  UPDATE audit_log SET diff=$1::JSONB WHERE audit_log.seq = $2::INTEGER
+2026-09-17 10:33:17.714 IST [12452] LOG:  checkpoint starting: time
+2026-09-17 10:36:51.370 IST [12452] LOG:  checkpoint complete: wrote 1947 buffers (11.9%); 0 WAL file(s) added, 0 removed, 3 recycled; write=213.252 s, sync=0.338 s, total=213.657 s; sync files=689, longest=0.006 s, average=0.001 s; distance=43897 kB, estimate=43897 kB; lsn=0/621B920, redo lsn=0/621B8E8

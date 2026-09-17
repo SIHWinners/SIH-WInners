@@ -1,0 +1,7 @@
+# pointcloud extension
+comment = 'data type for lidar point clouds'
+default_version = '1.2.5'
+module_pathname = '$libdir/pointcloud-1.2'
+relocatable = false
+superuser = true
+#requires = 'postgis'

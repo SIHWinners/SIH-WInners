@@ -1,0 +1,7 @@
+OGR_FDW: 1.1.7
+PostgreSQL: 16 w64
+Built: 20251120
+GIT_REPO: https://github.com/pramsey/pgsql-ogr-fdw
+GIT_BRANCH: 
+GIT_REVISION: 
+GDAL_VER: 3.9.2

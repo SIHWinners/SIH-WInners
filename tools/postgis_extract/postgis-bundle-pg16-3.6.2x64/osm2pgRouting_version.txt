@@ -1,0 +1,6 @@
+osm2pgRouting http://pgrouting.org : 3.0.0. 785a13e5077c8966b2bac5ede72d88c394139a23
+PostgreSQL http://www.postgresql.org : 16 64 
+BOOST http://www.boost.org : 1.86.0
+EXPAT http://expat.sourceforge.net/ : 2.7.3
+LIBPQXX https://github.com/jtv/libpqxx/releases : 7.10.3
+Built: 20251115

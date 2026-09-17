@@ -1,0 +1,24 @@
+{
+  "name": "pgadmin4",
+  "description": "pgAdmin is the most popular and feature rich Open Source administration and development platform for PostgreSQL, the most advanced Open Source database in the world.",
+  "repository": "https://github.com/postgres/pgadmin4.git",
+  "author": "pgAdmin Development Team (https://www.pgadmin.org/)",
+  "license": "PostgreSQL",
+  "type": "module",
+  "main": "src/js/pgadmin.js",
+  "scripts": {
+    "start": "electron .",
+    "linter": "yarn run eslint -c .eslintrc.js ."
+  },
+  "packageManager": "yarn@4.9.2",
+  "devDependencies": {
+    "electron": "37.2.0",
+    "eslint": "^9.30.1",
+    "eslint-plugin-unused-imports": "^4.1.4"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "electron-context-menu": "^4.1.0",
+    "electron-store": "^10.1.0"
+  }
+}

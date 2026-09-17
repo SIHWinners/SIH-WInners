@@ -1,0 +1,4 @@
+comment = 'H3 PostGIS integration'
+default_version = '4.1.4'
+relocatable = TRUE
+requires = 'h3, postgis, postgis_raster'
