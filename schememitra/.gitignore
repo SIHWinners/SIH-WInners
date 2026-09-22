@@ -1,0 +1,29 @@
+node_modules/
+.next/
+dist/
+coverage/
+.turbo/
+*.log
+.env
+.env.local
+.DS_Store
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+# runtime data
+services/core/var/
+services/core/ml/artifacts/*.tmp
+apps/mobile/.expo/
+apps/mobile/android/
+apps/mobile/ios/
+playwright-report/
+test-results/
+.lighthouseci/
+models/
+ml/data/

@@ -1,0 +1,15 @@
+[
+  { "code": "en", "name": "English", "native": "English", "script": "Latn", "dir": "ltr", "bcp47": "en-IN", "bhashini": "en" },
+  { "code": "hi", "name": "Hindi", "native": "हिन्दी", "script": "Deva", "dir": "ltr", "bcp47": "hi-IN", "bhashini": "hi" },
+  { "code": "bn", "name": "Bengali", "native": "বাংলা", "script": "Beng", "dir": "ltr", "bcp47": "bn-IN", "bhashini": "bn" },
+  { "code": "mr", "name": "Marathi", "native": "मराठी", "script": "Deva", "dir": "ltr", "bcp47": "mr-IN", "bhashini": "mr" },
+  { "code": "te", "name": "Telugu", "native": "తెలుగు", "script": "Telu", "dir": "ltr", "bcp47": "te-IN", "bhashini": "te" },
+  { "code": "ta", "name": "Tamil", "native": "தமிழ்", "script": "Taml", "dir": "ltr", "bcp47": "ta-IN", "bhashini": "ta" },
+  { "code": "gu", "name": "Gujarati", "native": "ગુજરાતી", "script": "Gujr", "dir": "ltr", "bcp47": "gu-IN", "bhashini": "gu" },
+  { "code": "ur", "name": "Urdu", "native": "اردو", "script": "Arab", "dir": "rtl", "bcp47": "ur-IN", "bhashini": "ur" },
+  { "code": "kn", "name": "Kannada", "native": "ಕನ್ನಡ", "script": "Knda", "dir": "ltr", "bcp47": "kn-IN", "bhashini": "kn" },
+  { "code": "or", "name": "Odia", "native": "ଓଡ଼ିଆ", "script": "Orya", "dir": "ltr", "bcp47": "or-IN", "bhashini": "or" },
+  { "code": "ml", "name": "Malayalam", "native": "മലയാളം", "script": "Mlym", "dir": "ltr", "bcp47": "ml-IN", "bhashini": "ml" },
+  { "code": "pa", "name": "Punjabi", "native": "ਪੰਜਾਬੀ", "script": "Guru", "dir": "ltr", "bcp47": "pa-IN", "bhashini": "pa" },
+  { "code": "as", "name": "Assamese", "native": "অসমীয়া", "script": "Beng", "dir": "ltr", "bcp47": "as-IN", "bhashini": "as" }
+]

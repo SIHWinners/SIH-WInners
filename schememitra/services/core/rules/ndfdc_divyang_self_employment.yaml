@@ -1,0 +1,53 @@
+scheme_code: NDFDC_DIVYANG_SELF_EMPLOYMENT
+apex_corp: NDFDC
+version: 1
+loan_type: term_loan
+name:
+  en: NDFDC Self-Employment Loan for Divyangjan
+  hi: NDFDC दिव्यांगजन स्वरोज़गार ऋण
+  bn: NDFDC দিব্যাঙ্গজন স্বনিযুক্তি ঋণ
+  mr: NDFDC दिव्यांगजन स्वयंरोजगार कर्ज
+  te: NDFDC దివ్యాంగుల స్వయం ఉపాధి రుణం
+  ta: NDFDC மாற்றுத்திறனாளி சுயதொழில் கடன்
+  gu: NDFDC દિવ્યાંગજન સ્વરોજગાર લોન
+  ur: NDFDC معذور افراد کے لیے خود روزگار قرض
+  kn: NDFDC ದಿವ್ಯಾಂಗಜನ ಸ್ವ-ಉದ್ಯೋಗ ಸಾಲ
+  or: NDFDC ଦିବ୍ୟାଙ୍ଗଜନ ସ୍ୱନିଯୁକ୍ତି ଋଣ
+  ml: NDFDC ഭിന്നശേഷിക്കാർക്കുള്ള സ്വയംതൊഴിൽ വായ്പ
+  pa: NDFDC ਦਿਵਿਆਂਗਜਨ ਸਵੈ-ਰੁਜ਼ਗਾਰ ਕਰਜ਼ਾ
+  as: NDFDC দিব্যাংগজনৰ স্বনিয়োজন ঋণ
+source_url: https://nhfdc.nic.in/
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  For persons with benchmark disability (40% or more, UDID). Age band, limit, 7% rate and 90:5:5 share are
+  illustrative; the corporation's current pattern of finance must be confirmed before the pilot.
+effective_from: 2026-04-01
+params:
+  min_disability_pct: 40
+  min_age: 18
+  max_age: 60
+  income_limit_paise: 50000000
+  max_loan_paise: 500000000
+eligibility:
+  - { id: disability, kind: disability_min }
+  - { id: age, kind: age_between }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: disability_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 500000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 500, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 50000000, rate_bps: 700 }
+    - { upto_paise: 500000000, rate_bps: 800 }
+  women_rebate_bps: 50
+moratorium: { default_months: 6, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 60, max_tenure_months: 84, frequency: monthly }
+channel_partner_types: [SCA, PSB, RRB]
+processing_days: 30

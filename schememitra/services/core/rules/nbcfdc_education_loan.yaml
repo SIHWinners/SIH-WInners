@@ -1,0 +1,50 @@
+scheme_code: NBCFDC_EDUCATION_LOAN
+apex_corp: NBCFDC
+version: 1
+loan_type: education_loan
+name:
+  en: NBCFDC Education Loan
+  hi: NBCFDC शिक्षा ऋण
+  bn: NBCFDC শিক্ষা ঋণ
+  mr: NBCFDC शैक्षणिक कर्ज
+  te: NBCFDC విద్యా రుణం
+  ta: NBCFDC கல்விக் கடன்
+  gu: NBCFDC શિક્ષણ લોન
+  ur: NBCFDC تعلیمی قرض
+  kn: NBCFDC ಶಿಕ್ಷಣ ಸಾಲ
+  or: NBCFDC ଶିକ୍ଷା ଋଣ
+  ml: NBCFDC വിദ്യാഭ്യാസ വായ്പ
+  pa: NBCFDC ਸਿੱਖਿਆ ਕਰਜ਼ਾ
+  as: NBCFDC শিক্ষা ঋণ
+source_url: https://nbcfdc.gov.in/nbcfdc/web/individual-loan-scheme
+verified_on: 2026-09-16
+needs_verification: false
+notes: >
+  Education component of the NBCFDC individual loan scheme: up to Rs 25 lakh, beneficiary rate 8%,
+  repayment up to 10 years with up to 5 years moratorium. Funding split mirrors the individual scheme.
+effective_from: 2026-04-01
+params:
+  categories: [obc]
+  income_limit_paise: 50000000
+  max_loan_paise: 250000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: income, kind: income_max }
+  - { id: admission, kind: course_admitted }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: admission_letter, required: true }
+  - { type: marksheet, required: true }
+  - { type: bank_passbook, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 250000000 }
+funding_pattern: { apex_bps: 8500, partner_bps: 1000, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 250000000, rate_bps: 800 }
+moratorium: { default_months: 12, max_months: 60, treatment: interest_capitalised }
+repayment: { default_tenure_months: 60, max_tenure_months: 120, frequency: monthly }
+channel_partner_types: [SCA, PSB]
+processing_days: 25

@@ -1,0 +1,50 @@
+scheme_code: NBCFDC_INDIVIDUAL_LOAN
+apex_corp: NBCFDC
+version: 1
+loan_type: term_loan
+name:
+  en: NBCFDC Individual Loan
+  hi: NBCFDC व्यक्तिगत ऋण
+  bn: NBCFDC ব্যক্তিগত ঋণ
+  mr: NBCFDC वैयक्तिक कर्ज
+  te: NBCFDC వ్యక్తిగత రుణం
+  ta: NBCFDC தனிநபர் கடன்
+  gu: NBCFDC વ્યક્તિગત લોન
+  ur: NBCFDC انفرادی قرض
+  kn: NBCFDC ವೈಯಕ್ತಿಕ ಸಾಲ
+  or: NBCFDC ବ୍ୟକ୍ତିଗତ ଋଣ
+  ml: NBCFDC വ്യക്തിഗത വായ്പ
+  pa: NBCFDC ਨਿੱਜੀ ਕਰਜ਼ਾ
+  as: NBCFDC ব্যক্তিগত ঋণ
+source_url: https://nbcfdc.gov.in/nbcfdc/web/individual-loan-scheme
+verified_on: 2026-09-16
+needs_verification: false
+notes: >
+  Source: income up to Rs 5.00 lakh; max loan Rs 25 lakh; NBCFDC 85%, channel partner/beneficiary 15%
+  (split here as 10% partner + 5% beneficiary); beneficiary rate 7% up to Rs 1.25 lakh, 8% above;
+  repayment 4 years up to Rs 1.25 lakh, 7 years above. Moratorium of one quarter is illustrative.
+effective_from: 2026-04-01
+params:
+  categories: [obc]
+  income_limit_paise: 50000000
+  max_loan_paise: 250000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 250000000 }
+funding_pattern: { apex_bps: 8500, partner_bps: 1000, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 12500000, rate_bps: 700 }
+    - { upto_paise: 250000000, rate_bps: 800 }
+moratorium: { default_months: 3, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 48, max_tenure_months: 84, frequency: monthly }
+channel_partner_types: [SCA, PSB, RRB]
+processing_days: 30

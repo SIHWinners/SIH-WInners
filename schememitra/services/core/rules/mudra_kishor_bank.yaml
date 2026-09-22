@@ -1,0 +1,46 @@
+scheme_code: MUDRA_KISHOR_BANK
+apex_corp: MUDRA
+version: 1
+loan_type: term_loan
+name:
+  en: PM MUDRA Kishor Loan (via bank)
+  hi: पीएम मुद्रा किशोर ऋण (बैंक से)
+  bn: পিএম মুদ্রা কিশোর ঋণ (ব্যাংকের মাধ্যমে)
+  mr: पीएम मुद्रा किशोर कर्ज (बँकेमार्फत)
+  te: పీఎం ముద్ర కిశోర్ రుణం (బ్యాంకు ద్వారా)
+  ta: பிஎம் முத்ரா கிஷோர் கடன் (வங்கி வழி)
+  gu: પીએમ મુદ્રા કિશોર લોન (બેંક દ્વારા)
+  ur: پی ایم مدرا کشور قرض (بینک کے ذریعے)
+  kn: ಪಿಎಂ ಮುದ್ರಾ ಕಿಶೋರ್ ಸಾಲ (ಬ್ಯಾಂಕ್ ಮೂಲಕ)
+  or: ପିଏମ୍ ମୁଦ୍ରା କିଶୋର ଋଣ (ବ୍ୟାଙ୍କ ମାଧ୍ୟମରେ)
+  ml: പിഎം മുദ്ര കിഷോർ വായ്പ (ബാങ്ക് വഴി)
+  pa: ਪੀਐੱਮ ਮੁਦਰਾ ਕਿਸ਼ੋਰ ਕਰਜ਼ਾ (ਬੈਂਕ ਰਾਹੀਂ)
+  as: পিএম মুদ্ৰা কিশোৰ ঋণ (বেংকৰ জৰিয়তে)
+source_url: https://www.mudra.org.in/
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Not a MoSJE apex scheme: included as the open-to-all fallback so applicants who narrowly miss a
+  concessional scheme still get a next-best option. Kishor covers loans above Rs 50,000 up to Rs 5 lakh
+  at bank rates; the 11.5% rate and 90:10 margin are illustrative market values.
+effective_from: 2026-04-01
+params:
+  max_loan_paise: 50000000
+  min_age: 18
+  max_age: 65
+eligibility:
+  - { id: age, kind: age_between }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: true }
+loan_limits: { min_paise: 5000000, max_paise: 50000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 0, beneficiary_bps: 1000 }
+interest:
+  slabs:
+    - { upto_paise: 50000000, rate_bps: 1150 }
+moratorium: { default_months: 0, max_months: 6, treatment: interest_paid_monthly }
+repayment: { default_tenure_months: 48, max_tenure_months: 60, frequency: monthly }
+channel_partner_types: [PSB, RRB]
+processing_days: 20

@@ -1,0 +1,45 @@
+scheme_code: NSKFDC_SHG_GROUP_LOAN
+apex_corp: NSKFDC
+version: 1
+loan_type: group_loan
+name:
+  en: NSKFDC Self Help Group Loan
+  hi: NSKFDC स्वयं सहायता समूह ऋण
+  bn: NSKFDC স্বনির্ভর গোষ্ঠী ঋণ
+  mr: NSKFDC बचत गट कर्ज
+  te: NSKFDC స్వయం సహాయక సంఘ రుణం
+  ta: NSKFDC சுய உதவிக் குழுக் கடன்
+  gu: NSKFDC સ્વ-સહાય જૂથ લોન
+  ur: NSKFDC سیلف ہیلپ گروپ قرض
+  kn: NSKFDC ಸ್ವಸಹಾಯ ಸಂಘ ಸಾಲ
+  or: NSKFDC ସ୍ୱୟଂ ସହାୟକ ଗୋଷ୍ଠୀ ଋଣ
+  ml: NSKFDC സ്വയം സഹായ സംഘ വായ്പ
+  pa: NSKFDC ਸਵੈ-ਸਹਾਇਤਾ ਸਮੂਹ ਕਰਜ਼ਾ
+  as: NSKFDC আত্মসহায়ক গোট ঋণ
+source_url: https://nskfdc.nic.in/
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Group-based micro loans for Safai Karamchari SHG members through SCAs and MFIs. Per-member limit,
+  rate and 90:10 share are illustrative. Verify.
+effective_from: 2026-04-01
+params:
+  categories: [safai_karamchari]
+  max_loan_paise: 6000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: shg, kind: shg_member }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: shg_certificate, required: true }
+  - { type: bank_passbook, required: true }
+loan_limits: { min_paise: 500000, max_paise: 6000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 1000, beneficiary_bps: 0 }
+interest:
+  slabs:
+    - { upto_paise: 6000000, rate_bps: 500 }
+moratorium: { default_months: 3, max_months: 3, treatment: interest_capitalised }
+repayment: { default_tenure_months: 24, max_tenure_months: 36, frequency: monthly }
+channel_partner_types: [SCA, NBFC_MFI]
+processing_days: 14

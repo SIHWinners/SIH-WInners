@@ -1,0 +1,49 @@
+scheme_code: NBCFDC_NEW_SWARNIMA
+apex_corp: NBCFDC
+version: 1
+loan_type: women_scheme
+name:
+  en: NBCFDC New Swarnima for Women
+  hi: NBCFDC नई स्वर्णिमा (महिलाओं के लिए)
+  bn: NBCFDC নিউ স্বর্ণিমা (মহিলাদের জন্য)
+  mr: NBCFDC न्यू स्वर्णिमा (महिलांसाठी)
+  te: NBCFDC న్యూ స్వర్ణిమ (మహిళల కోసం)
+  ta: NBCFDC நியூ ஸ்வர்ணிமா (மகளிருக்கு)
+  gu: NBCFDC ન્યૂ સ્વર્ણિમા (મહિલાઓ માટે)
+  ur: NBCFDC نیو سورنیما (خواتین کے لیے)
+  kn: NBCFDC ನ್ಯೂ ಸ್ವರ್ಣಿಮಾ (ಮಹಿಳೆಯರಿಗೆ)
+  or: NBCFDC ନ୍ୟୁ ସ୍ୱର୍ଣ୍ଣିମା (ମହିଳାଙ୍କ ପାଇଁ)
+  ml: NBCFDC ന്യൂ സ്വർണിമ (വനിതകൾക്ക്)
+  pa: NBCFDC ਨਿਊ ਸਵਰਨਿਮਾ (ਔਰਤਾਂ ਲਈ)
+  as: NBCFDC নিউ স্বৰ্ণিমা (মহিলাৰ বাবে)
+source_url: https://socialjustice.gov.in/schemes/13
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Ministry page lists max loan Rs 1,00,000 at 5% with NBCFDC 95% of project cost; that page predates the
+  current income ceiling, so the income limit here follows the NBCFDC individual scheme. Verify before pilot.
+effective_from: 2026-04-01
+params:
+  categories: [obc]
+  income_limit_paise: 50000000
+  max_loan_paise: 10000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: women, kind: women_only }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: false }
+loan_limits: { min_paise: 1000000, max_paise: 10000000 }
+funding_pattern: { apex_bps: 9500, partner_bps: 0, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 10000000, rate_bps: 500 }
+moratorium: { default_months: 3, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 36, max_tenure_months: 60, frequency: monthly }
+channel_partner_types: [SCA, RRB, NBFC_MFI]
+processing_days: 21

@@ -1,0 +1,48 @@
+scheme_code: NBCFDC_MICRO_FINANCE
+apex_corp: NBCFDC
+version: 1
+loan_type: micro_finance
+name:
+  en: NBCFDC Micro Finance (SHG)
+  hi: NBCFDC माइक्रो फ़ाइनेंस (SHG)
+  bn: NBCFDC ক্ষুদ্র ঋণ (SHG)
+  mr: NBCFDC सूक्ष्म वित्त (बचत गट)
+  te: NBCFDC సూక్ష్మ రుణం (SHG)
+  ta: NBCFDC நுண் நிதி (SHG)
+  gu: NBCFDC માઇક્રો ફાઇનાન્સ (SHG)
+  ur: NBCFDC مائیکرو فنانس (SHG)
+  kn: NBCFDC ಕಿರು ಹಣಕಾಸು (SHG)
+  or: NBCFDC କ୍ଷୁଦ୍ର ଋଣ (SHG)
+  ml: NBCFDC സൂക്ഷ്മ വായ്പ (SHG)
+  pa: NBCFDC ਮਾਈਕ੍ਰੋ ਫ਼ਾਈਨਾਂਸ (SHG)
+  as: NBCFDC ক্ষুদ্ৰ ঋণ (SHG)
+source_url: https://socialjustice.gov.in/schemes/13
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Ministry page lists micro finance up to Rs 50,000 per member at 5% with NBCFDC 90% of project cost,
+  routed through SCAs/SHGs. Income ceiling aligned to the current NBCFDC individual scheme. Verify.
+effective_from: 2026-04-01
+params:
+  categories: [obc]
+  income_limit_paise: 50000000
+  max_loan_paise: 5000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: shg, kind: shg_member }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: shg_certificate, required: true }
+  - { type: bank_passbook, required: true }
+loan_limits: { min_paise: 500000, max_paise: 5000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 1000, beneficiary_bps: 0 }
+interest:
+  slabs:
+    - { upto_paise: 5000000, rate_bps: 500 }
+moratorium: { default_months: 3, max_months: 3, treatment: interest_capitalised }
+repayment: { default_tenure_months: 24, max_tenure_months: 36, frequency: monthly }
+channel_partner_types: [SCA, NBFC_MFI]
+processing_days: 14

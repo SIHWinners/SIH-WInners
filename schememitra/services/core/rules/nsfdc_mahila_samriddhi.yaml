@@ -1,0 +1,48 @@
+scheme_code: NSFDC_MAHILA_SAMRIDHI
+apex_corp: NSFDC
+version: 1
+loan_type: women_scheme
+name:
+  en: NSFDC Mahila Samriddhi Yojana
+  hi: NSFDC महिला समृद्धि योजना
+  bn: NSFDC মহিলা সমৃদ্ধি যোজনা
+  mr: NSFDC महिला समृद्धी योजना
+  te: NSFDC మహిళా సమృద్ధి యోజన
+  ta: NSFDC மகிளா சம்ருத்தி யோஜனா
+  gu: NSFDC મહિલા સમૃદ્ધિ યોજના
+  ur: NSFDC مہیلا سمردھی یوجنا
+  kn: NSFDC ಮಹಿಳಾ ಸಮೃದ್ಧಿ ಯೋಜನೆ
+  or: NSFDC ମହିଳା ସମୃଦ୍ଧି ଯୋଜନା
+  ml: NSFDC മഹിളാ സമൃദ്ധി യോജന
+  pa: NSFDC ਮਹਿਲਾ ਸਮ੍ਰਿੱਧੀ ਯੋਜਨਾ
+  as: NSFDC মহিলা সমৃদ্ধি যোজনা
+source_url: https://nsfdc.nic.in/scheme
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Women-focused micro loan for SC women through SCAs/SHGs. Rs 50,000 limit, 95:5 share and 5% rate are
+  illustrative (patterned on the NBCFDC Mahila Samriddhi values on the Ministry page). Verify.
+effective_from: 2026-04-01
+params:
+  categories: [sc]
+  income_limit_paise: 50000000
+  max_loan_paise: 5000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: women, kind: women_only }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 5000000 }
+funding_pattern: { apex_bps: 9500, partner_bps: 500, beneficiary_bps: 0 }
+interest:
+  slabs:
+    - { upto_paise: 5000000, rate_bps: 500 }
+moratorium: { default_months: 3, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 36, max_tenure_months: 48, frequency: monthly }
+channel_partner_types: [SCA, NBFC_MFI]
+processing_days: 15

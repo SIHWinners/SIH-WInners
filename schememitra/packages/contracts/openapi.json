@@ -1,0 +1,5751 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SchemeMitra Core API",
+    "description": "Deterministic eligibility, repayment maths, partner routing, documents, voice and application tracking for marginalized entrepreneurs. Money is integer paise; rates are bps.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/healthz": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Healthz",
+        "operationId": "healthz_healthz_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Healthz Healthz Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Readyz",
+        "operationId": "readyz_readyz_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Readyz Readyz Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/system/status": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "System Status",
+        "operationId": "system_status_v1_system_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/jobs/{job_id}": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Job Status",
+        "operationId": "job_status_v1_jobs__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Job Status V1 Jobs  Job Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/otp/request": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Otp Request",
+        "operationId": "otp_request_v1_auth_otp_request_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OtpRequestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/otp/verify": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Otp Verify",
+        "operationId": "otp_verify_v1_auth_otp_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OtpVerify"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/me": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Me",
+        "operationId": "me_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/eligibility/evaluate": {
+      "post": {
+        "tags": [
+          "eligibility"
+        ],
+        "summary": "Evaluate",
+        "description": "Rules-only eligibility with a full, localisable trace for every scheme.",
+        "operationId": "evaluate_v1_eligibility_evaluate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvaluateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rules/bundle": {
+      "get": {
+        "tags": [
+          "eligibility"
+        ],
+        "summary": "Rules Bundle",
+        "description": "Versioned rule set for offline evaluation on phones. Honours If-None-Match.",
+        "operationId": "rules_bundle_v1_rules_bundle_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Rules Bundle V1 Rules Bundle Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/finance/emi": {
+      "post": {
+        "tags": [
+          "finance"
+        ],
+        "summary": "Emi",
+        "operationId": "emi_v1_finance_emi_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmiRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmiResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/finance/compare": {
+      "post": {
+        "tags": [
+          "finance"
+        ],
+        "summary": "Compare",
+        "operationId": "compare_v1_finance_compare_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompareRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompareResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/partners/nearby": {
+      "get": {
+        "tags": [
+          "partners"
+        ],
+        "summary": "Nearby",
+        "operationId": "nearby_v1_partners_nearby_get",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90,
+              "minimum": -90,
+              "title": "Lat"
+            }
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 180,
+              "minimum": -180,
+              "title": "Lng"
+            }
+          },
+          {
+            "name": "scheme",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 48
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scheme"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 24
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "name": "radius_km",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 300,
+              "exclusiveMinimum": 0,
+              "default": 40,
+              "title": "Radius Km"
+            }
+          },
+          {
+            "name": "loan_paise",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Loan Paise"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "default": 10,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NearbyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/pincode/{pincode}": {
+      "get": {
+        "tags": [
+          "partners"
+        ],
+        "summary": "Locate Pincode",
+        "operationId": "locate_pincode_v1_geo_pincode__pincode__get",
+        "parameters": [
+          {
+            "name": "pincode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{6}$",
+              "title": "Pincode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistrictOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/geo/districts": {
+      "get": {
+        "tags": [
+          "partners"
+        ],
+        "summary": "Districts",
+        "operationId": "districts_v1_geo_districts_get",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DistrictOut"
+                  },
+                  "title": "Response Districts V1 Geo Districts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/documents": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Upload Document",
+        "operationId": "upload_document_v1_documents_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_document_v1_documents_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/documents/digilocker/consent": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Digilocker Consent",
+        "description": "Exchanges the DigiLocker authorization code for a short-lived access token.",
+        "operationId": "digilocker_consent_v1_documents_digilocker_consent_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentTokenIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Digilocker Consent V1 Documents Digilocker Consent Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/documents/digilocker/authorize": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Digilocker Authorize",
+        "operationId": "digilocker_authorize_v1_documents_digilocker_authorize_get",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "State"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Digilocker Authorize V1 Documents Digilocker Authorize Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/documents/digilocker/pull": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Digilocker Pull",
+        "operationId": "digilocker_pull_v1_documents_digilocker_pull_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PullIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/documents/{document_id}/image": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Document Image",
+        "operationId": "document_image_v1_documents__document_id__image_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/demo/documents/{persona}/{doc_type}": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Demo Document",
+        "description": "Fictional demo papers for judges (DEMO_MODE only).",
+        "operationId": "demo_document_v1_demo_documents__persona___doc_type__get",
+        "parameters": [
+          {
+            "name": "persona",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z]+$",
+              "title": "Persona"
+            }
+          },
+          {
+            "name": "doc_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z_]+$",
+              "title": "Doc Type"
+            }
+          },
+          {
+            "name": "variant",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "paper",
+                "digilocker"
+              ],
+              "type": "string",
+              "default": "paper",
+              "title": "Variant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/demo/documents/{persona}": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Demo Document List",
+        "operationId": "demo_document_list_v1_demo_documents__persona__get",
+        "parameters": [
+          {
+            "name": "persona",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z]+$",
+              "title": "Persona"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "title": "Response Demo Document List V1 Demo Documents  Persona  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "List Mine",
+        "operationId": "list_mine_v1_applications_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ApplicationOut"
+                  },
+                  "type": "array",
+                  "title": "Response List Mine V1 Applications Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Create Or Update",
+        "description": "Idempotent on client_uuid: offline clients can retry safely.",
+        "operationId": "create_or_update_v1_applications_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DraftIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Get Application",
+        "operationId": "get_application_v1_applications__application_id__get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/readiness": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Readiness",
+        "operationId": "readiness_v1_applications__application_id__readiness_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadinessOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/consent": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Consent",
+        "operationId": "consent_v1_applications__application_id__consent_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Consent V1 Applications  Application Id  Consent Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/submit": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Submit",
+        "operationId": "submit_v1_applications__application_id__submit_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/resubmit": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Resubmit",
+        "operationId": "resubmit_v1_applications__application_id__resubmit_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/qr.png": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Qr Png",
+        "operationId": "qr_png_v1_applications__application_id__qr_png_get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/loan-file.pdf": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Loan File",
+        "operationId": "loan_file_v1_applications__application_id__loan_file_pdf_get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/sanction-letter.pdf": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Sanction Letter",
+        "description": "Issued by the lender on approval; readable by the applicant side and that lender.",
+        "operationId": "sanction_letter_v1_applications__application_id__sanction_letter_pdf_get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/erase": {
+      "post": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Erase",
+        "description": "Withdraw consent and delete personal data (DPDP Act 2023, right to erasure).",
+        "operationId": "erase_v1_applications__application_id__erase_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "boolean"
+                  },
+                  "title": "Response Erase V1 Applications  Application Id  Erase Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/track/{tracking_id}": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Track",
+        "description": "Public status by tracking ID (no personal data), also used by SMS STATUS and IVR.",
+        "operationId": "track_v1_track__tracking_id__get",
+        "parameters": [
+          {
+            "name": "tracking_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 10,
+              "maxLength": 24,
+              "title": "Tracking Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrackOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/applications/{application_id}/consents": {
+      "get": {
+        "tags": [
+          "applications"
+        ],
+        "summary": "Consents",
+        "operationId": "consents_v1_applications__application_id__consents_get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Consents V1 Applications  Application Id  Consents Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/sessions": {
+      "post": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Create Session",
+        "description": "Start a guided voice intake. Works before sign-in, like the typed form.",
+        "operationId": "create_session_v1_voice_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceTurnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Get Session State",
+        "operationId": "get_session_state_v1_voice_sessions__session_id__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceTurnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/sessions/{session_id}/utterance": {
+      "post": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Utterance",
+        "description": "One turn: audio (or typed text) → transcript → slots → localized reply (+ audio URL).",
+        "operationId": "utterance_v1_voice_sessions__session_id__utterance_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_utterance_v1_voice_sessions__session_id__utterance_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoiceTurnOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/readback": {
+      "post": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Readback",
+        "description": "Summary of the application in the applicant's language, to be read aloud before submit (C6).",
+        "operationId": "readback_v1_voice_readback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadbackIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadbackOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/readback/{application_id}/reply": {
+      "post": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Readback Reply",
+        "description": "\"haan, sahi hai\" confirms (text evidence goes into the consent record); naming a field asks to correct it.",
+        "operationId": "readback_reply_v1_voice_readback__application_id__reply_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_readback_reply_v1_voice_readback__application_id__reply_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadbackReplyOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/voice/tts/{digest}": {
+      "get": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Tts Clip",
+        "operationId": "tts_clip_v1_voice_tts__digest__get",
+        "parameters": [
+          {
+            "name": "digest",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Digest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "audio/wav": {}
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ranking/rank": {
+      "post": {
+        "tags": [
+          "ranking"
+        ],
+        "summary": "Rank",
+        "description": "Order the schemes the rules found eligible, with plain-language reasons. Never adds or removes a scheme.",
+        "operationId": "rank_v1_ranking_rank_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RankRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RankResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/partner/queue": {
+      "get": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Queue",
+        "description": "Files sent to this lender. Admins see all lenders (read-only for decisions).",
+        "operationId": "queue_v1_partner_queue_get",
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "all",
+                "new",
+                "in_review",
+                "decided"
+              ],
+              "type": "string",
+              "default": "all",
+              "title": "Group"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 60
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueueOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/partner/scan": {
+      "post": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Scan",
+        "description": "Verify the signed QR from the citizen's phone or loan file, then open that file.",
+        "operationId": "scan_v1_partner_scan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScanIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScanOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/partner/applications/{application_id}": {
+      "get": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Review",
+        "operationId": "review_v1_partner_applications__application_id__get",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/partner/applications/{application_id}/decision": {
+      "post": {
+        "tags": [
+          "partner"
+        ],
+        "summary": "Decision",
+        "description": "receive · start_review · request_documents · approve (sanction letter) · reject (coded reason) · disburse.\nStatus push and SMS in the applicant's language go out when this commits (claim C21: the lender decides).",
+        "operationId": "decision_v1_partner_applications__application_id__decision_post",
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Application Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdapterStatus": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "sandbox": {
+            "type": "boolean",
+            "title": "Sandbox"
+          },
+          "breaker": {
+            "type": "string",
+            "title": "Breaker"
+          },
+          "chaos": {
+            "type": "boolean",
+            "title": "Chaos"
+          },
+          "last_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Path"
+          },
+          "fallback": {
+            "type": "string",
+            "title": "Fallback"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "mode",
+          "sandbox",
+          "breaker",
+          "chaos",
+          "last_path",
+          "fallback"
+        ],
+        "title": "AdapterStatus"
+      },
+      "AffordabilityOut": {
+        "properties": {
+          "affordable": {
+            "type": "boolean",
+            "title": "Affordable"
+          },
+          "ratio_bps": {
+            "type": "integer",
+            "title": "Ratio Bps"
+          },
+          "max_ratio_bps": {
+            "type": "integer",
+            "title": "Max Ratio Bps"
+          },
+          "monthly_income_paise": {
+            "type": "integer",
+            "title": "Monthly Income Paise"
+          },
+          "suggest_tenure_months": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggest Tenure Months"
+          },
+          "suggest_tenure_emi_paise": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggest Tenure Emi Paise"
+          },
+          "suggest_principal_paise": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggest Principal Paise"
+          },
+          "suggest_principal_emi_paise": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggest Principal Emi Paise"
+          }
+        },
+        "type": "object",
+        "required": [
+          "affordable",
+          "ratio_bps",
+          "max_ratio_bps",
+          "monthly_income_paise",
+          "suggest_tenure_months",
+          "suggest_tenure_emi_paise",
+          "suggest_principal_paise",
+          "suggest_principal_emi_paise"
+        ],
+        "title": "AffordabilityOut"
+      },
+      "ApplicantFacts": {
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 120.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "female",
+                  "male",
+                  "other"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
+          },
+          "social_category": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "sc",
+                  "st",
+                  "obc",
+                  "safai_karamchari",
+                  "minority",
+                  "general"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Social Category"
+          },
+          "has_disability": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Has Disability"
+          },
+          "disability_pct": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disability Pct"
+          },
+          "state_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2,
+                "minLength": 2
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State Code"
+          },
+          "district_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District Code"
+          },
+          "pincode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^\\d{6}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pincode"
+          },
+          "annual_family_income_paise": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 10000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Annual Family Income Paise"
+          },
+          "education_level": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 24
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Education Level"
+          },
+          "occupation": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 48
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occupation"
+          },
+          "business_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Type"
+          },
+          "project_cost_paise": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Cost Paise"
+          },
+          "loan_needed_paise": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000000000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Loan Needed Paise"
+          },
+          "existing_loans": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Loans"
+          },
+          "shg_member": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shg Member"
+          },
+          "course_admitted": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Course Admitted"
+          },
+          "lat": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 90.0,
+                "minimum": -90.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lng": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 180.0,
+                "minimum": -180.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lng"
+          }
+        },
+        "type": "object",
+        "title": "ApplicantFacts",
+        "description": "Only rule-relevant facts (DPDP data minimisation). Money in paise."
+      },
+      "ApplicationOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tracking_id": {
+            "type": "string",
+            "title": "Tracking Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "scheme_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Code"
+          },
+          "partner_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Id"
+          },
+          "partner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Name"
+          },
+          "lang": {
+            "type": "string",
+            "title": "Lang"
+          },
+          "submitted_via": {
+            "type": "string",
+            "title": "Submitted Via"
+          },
+          "completeness_score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completeness Score"
+          },
+          "eligibility_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eligibility Status"
+          },
+          "plan": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Plan"
+          },
+          "finance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Finance"
+          },
+          "requested_documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Documents"
+          },
+          "rejection_reason_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rejection Reason Code"
+          },
+          "timeline": {
+            "items": {
+              "$ref": "#/components/schemas/TimelineItem"
+            },
+            "type": "array",
+            "title": "Timeline"
+          },
+          "documents": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Documents"
+          },
+          "consent_recorded": {
+            "type": "boolean",
+            "title": "Consent Recorded"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "submitted_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Submitted At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tracking_id",
+          "status",
+          "scheme_code",
+          "partner_id",
+          "partner_name",
+          "lang",
+          "submitted_via",
+          "completeness_score",
+          "eligibility_status",
+          "plan",
+          "finance",
+          "requested_documents",
+          "rejection_reason_code",
+          "timeline",
+          "documents",
+          "consent_recorded",
+          "created_at",
+          "submitted_at"
+        ],
+        "title": "ApplicationOut"
+      },
+      "AuditEntry": {
+        "properties": {
+          "at": {
+            "type": "string",
+            "title": "At"
+          },
+          "actor_role": {
+            "type": "string",
+            "title": "Actor Role"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "diff": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Diff"
+          },
+          "hash": {
+            "type": "string",
+            "title": "Hash"
+          }
+        },
+        "type": "object",
+        "required": [
+          "at",
+          "actor_role",
+          "action",
+          "diff",
+          "hash"
+        ],
+        "title": "AuditEntry"
+      },
+      "Body_readback_reply_v1_voice_readback__application_id__reply_post": {
+        "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "audio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "contentMediaType": "application/octet-stream"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio"
+          }
+        },
+        "type": "object",
+        "title": "Body_readback_reply_v1_voice_readback__application_id__reply_post"
+      },
+      "Body_upload_document_v1_documents_post": {
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Application Id"
+          },
+          "doc_type": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Doc Type"
+          },
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "camera",
+              "upload"
+            ],
+            "title": "Source",
+            "default": "camera"
+          }
+        },
+        "type": "object",
+        "required": [
+          "application_id",
+          "doc_type",
+          "file"
+        ],
+        "title": "Body_upload_document_v1_documents_post"
+      },
+      "Body_utterance_v1_voice_sessions__session_id__utterance_post": {
+        "properties": {
+          "text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "audio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "contentMediaType": "application/octet-stream"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio",
+            "description": "≤15 s chunk: audio/webm (Opus), ogg, wav, mp4"
+          }
+        },
+        "type": "object",
+        "title": "Body_utterance_v1_voice_sessions__session_id__utterance_post"
+      },
+      "ClarifyOut": {
+        "properties": {
+          "slot": {
+            "type": "string",
+            "title": "Slot"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "display": {
+            "type": "string",
+            "title": "Display"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slot",
+          "value",
+          "display"
+        ],
+        "title": "ClarifyOut"
+      },
+      "CompareRequest": {
+        "properties": {
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/EmiRequest"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Options"
+          }
+        },
+        "type": "object",
+        "required": [
+          "options"
+        ],
+        "title": "CompareRequest"
+      },
+      "CompareResponse": {
+        "properties": {
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/EmiResponse"
+            },
+            "type": "array",
+            "title": "Options"
+          }
+        },
+        "type": "object",
+        "required": [
+          "options"
+        ],
+        "title": "CompareResponse"
+      },
+      "ConsentIn": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "otp",
+              "thumb",
+              "voice"
+            ],
+            "title": "Method"
+          },
+          "language": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Language"
+          },
+          "text_version": {
+            "type": "string",
+            "maxLength": 32,
+            "title": "Text Version",
+            "default": "2026-09-v1"
+          },
+          "scope": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Scope",
+            "default": [
+              "profile",
+              "documents",
+              "share_partner"
+            ]
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Evidence",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "method",
+          "language"
+        ],
+        "title": "ConsentIn"
+      },
+      "ConsentTokenIn": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "ConsentTokenIn"
+      },
+      "DecisionIn": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "receive",
+              "start_review",
+              "request_documents",
+              "approve",
+              "reject",
+              "disburse"
+            ],
+            "title": "Action"
+          },
+          "reason_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason Code"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Documents",
+            "default": []
+          },
+          "sanction": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SanctionTerms"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "action"
+        ],
+        "title": "DecisionIn"
+      },
+      "DistrictHQ": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lng": {
+            "type": "number",
+            "title": "Lng"
+          },
+          "pincode": {
+            "type": "string",
+            "title": "Pincode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lat",
+          "lng",
+          "pincode"
+        ],
+        "title": "DistrictHQ",
+        "description": "District headquarters, used as the search centre for nearby lenders (same as the typed form)."
+      },
+      "DistrictOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lng": {
+            "type": "number",
+            "title": "Lng"
+          },
+          "pincode": {
+            "type": "string",
+            "title": "Pincode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "state_code",
+          "lat",
+          "lng",
+          "pincode"
+        ],
+        "title": "DistrictOut"
+      },
+      "DocumentOut": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "fields": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fields"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Issues"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "suggest_digilocker": {
+            "type": "boolean",
+            "title": "Suggest Digilocker"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          },
+          "sandbox": {
+            "type": "boolean",
+            "title": "Sandbox"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine"
+          },
+          "sha256": {
+            "type": "string",
+            "title": "Sha256"
+          },
+          "purge_after": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purge After"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "type",
+          "source",
+          "fields",
+          "confidence",
+          "issues",
+          "status",
+          "suggest_digilocker",
+          "verified",
+          "sandbox",
+          "engine",
+          "sha256",
+          "purge_after"
+        ],
+        "title": "DocumentOut"
+      },
+      "DraftIn": {
+        "properties": {
+          "client_uuid": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 8,
+            "title": "Client Uuid"
+          },
+          "lang": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Lang",
+            "default": "en"
+          },
+          "personal": {
+            "$ref": "#/components/schemas/PersonalIn",
+            "default": {}
+          },
+          "facts": {
+            "$ref": "#/components/schemas/ApplicantFacts"
+          },
+          "scheme_code": {
+            "type": "string",
+            "maxLength": 48,
+            "title": "Scheme Code"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/LoanPlanIn"
+          },
+          "partner_id": {
+            "type": "string",
+            "title": "Partner Id"
+          },
+          "submitted_via": {
+            "type": "string",
+            "enum": [
+              "app",
+              "pwa",
+              "sms",
+              "csc"
+            ],
+            "title": "Submitted Via",
+            "default": "pwa"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_uuid",
+          "facts",
+          "scheme_code",
+          "plan",
+          "partner_id"
+        ],
+        "title": "DraftIn"
+      },
+      "EmiRequest": {
+        "properties": {
+          "principal_paise": {
+            "type": "integer",
+            "maximum": 100000000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Principal Paise",
+            "examples": [
+              6000000
+            ]
+          },
+          "rate_bps": {
+            "type": "integer",
+            "maximum": 3000.0,
+            "minimum": 0.0,
+            "title": "Rate Bps",
+            "examples": [
+              650
+            ]
+          },
+          "tenure_months": {
+            "type": "integer",
+            "maximum": 360.0,
+            "minimum": 1.0,
+            "title": "Tenure Months",
+            "examples": [
+              36
+            ]
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Moratorium Months",
+            "default": 0
+          },
+          "treatment": {
+            "type": "string",
+            "enum": [
+              "interest_capitalised",
+              "interest_paid_monthly",
+              "interest_waived"
+            ],
+            "title": "Treatment",
+            "default": "interest_capitalised"
+          },
+          "frequency": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "quarterly"
+            ],
+            "title": "Frequency",
+            "default": "monthly"
+          },
+          "subsidy_paise": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Subsidy Paise",
+            "default": 0
+          },
+          "project_cost_paise": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Cost Paise"
+          },
+          "split": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SplitIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "monthly_income_paise": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Income Paise"
+          },
+          "max_emi_ratio_bps": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 500.0,
+            "title": "Max Emi Ratio Bps",
+            "default": 4000
+          },
+          "max_tenure_months": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 360.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Tenure Months"
+          },
+          "include_schedule": {
+            "type": "boolean",
+            "title": "Include Schedule",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "principal_paise",
+          "rate_bps",
+          "tenure_months"
+        ],
+        "title": "EmiRequest"
+      },
+      "EmiResponse": {
+        "properties": {
+          "emi_paise": {
+            "type": "integer",
+            "title": "Emi Paise"
+          },
+          "instalments": {
+            "type": "integer",
+            "title": "Instalments"
+          },
+          "period_months": {
+            "type": "integer",
+            "title": "Period Months"
+          },
+          "principal_paise": {
+            "type": "integer",
+            "title": "Principal Paise"
+          },
+          "principal_after_moratorium_paise": {
+            "type": "integer",
+            "title": "Principal After Moratorium Paise"
+          },
+          "moratorium_interest_paise": {
+            "type": "integer",
+            "title": "Moratorium Interest Paise"
+          },
+          "total_interest_paise": {
+            "type": "integer",
+            "title": "Total Interest Paise"
+          },
+          "total_payable_paise": {
+            "type": "integer",
+            "title": "Total Payable Paise"
+          },
+          "schedule": {
+            "items": {
+              "$ref": "#/components/schemas/RowOut"
+            },
+            "type": "array",
+            "title": "Schedule"
+          },
+          "split_breakdown": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SplitOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "affordability": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AffordabilityOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "emi_paise",
+          "instalments",
+          "period_months",
+          "principal_paise",
+          "principal_after_moratorium_paise",
+          "moratorium_interest_paise",
+          "total_interest_paise",
+          "total_payable_paise",
+          "schedule",
+          "split_breakdown",
+          "affordability"
+        ],
+        "title": "EmiResponse"
+      },
+      "EvaluateRequest": {
+        "properties": {
+          "applicant": {
+            "$ref": "#/components/schemas/ApplicantFacts"
+          },
+          "scheme_codes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Codes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "applicant"
+        ],
+        "title": "EvaluateRequest"
+      },
+      "EvaluateResponse": {
+        "properties": {
+          "rules_etag": {
+            "type": "string",
+            "title": "Rules Etag"
+          },
+          "eligible": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Eligible"
+          },
+          "ineligible": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ineligible"
+          },
+          "needs_info": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Needs Info"
+          },
+          "near_misses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Near Misses"
+          },
+          "next_best": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Best"
+          },
+          "ranking_method": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "model",
+                  "heuristic",
+                  "none"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ranking Method"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/SchemeResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rules_etag",
+          "eligible",
+          "ineligible",
+          "needs_info",
+          "near_misses",
+          "next_best",
+          "results"
+        ],
+        "title": "EvaluateResponse"
+      },
+      "ExcludedPartner": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "district_code": {
+            "type": "string",
+            "title": "District Code"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lng": {
+            "type": "number",
+            "title": "Lng"
+          },
+          "distance_km": {
+            "type": "number",
+            "title": "Distance Km"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages"
+          },
+          "documents_needed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Documents Needed"
+          },
+          "open_hours": {
+            "type": "string",
+            "title": "Open Hours"
+          },
+          "contact": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Contact"
+          },
+          "schemes_supported": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Schemes Supported"
+          },
+          "categories_supported": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Categories Supported"
+          },
+          "is_demo": {
+            "type": "boolean",
+            "title": "Is Demo"
+          },
+          "health_score": {
+            "type": "integer",
+            "title": "Health Score"
+          },
+          "health_components": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Health Components"
+          },
+          "avg_sanction_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Sanction Days"
+          },
+          "rank_score": {
+            "type": "number",
+            "title": "Rank Score"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type",
+          "state_code",
+          "district_code",
+          "district_name",
+          "address",
+          "lat",
+          "lng",
+          "distance_km",
+          "languages",
+          "documents_needed",
+          "open_hours",
+          "contact",
+          "schemes_supported",
+          "categories_supported",
+          "is_demo",
+          "health_score",
+          "health_components",
+          "avg_sanction_days",
+          "rank_score",
+          "reason"
+        ],
+        "title": "ExcludedPartner"
+      },
+      "FundingPattern": {
+        "properties": {
+          "apex_bps": {
+            "type": "integer",
+            "title": "Apex Bps"
+          },
+          "partner_bps": {
+            "type": "integer",
+            "title": "Partner Bps"
+          },
+          "beneficiary_bps": {
+            "type": "integer",
+            "title": "Beneficiary Bps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "apex_bps",
+          "partner_bps",
+          "beneficiary_bps"
+        ],
+        "title": "FundingPattern"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LoanPlanIn": {
+        "properties": {
+          "principal_paise": {
+            "type": "integer",
+            "maximum": 100000000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Principal Paise"
+          },
+          "rate_bps": {
+            "type": "integer",
+            "maximum": 3000.0,
+            "minimum": 0.0,
+            "title": "Rate Bps"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "maximum": 360.0,
+            "minimum": 1.0,
+            "title": "Tenure Months"
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Moratorium Months",
+            "default": 0
+          },
+          "treatment": {
+            "type": "string",
+            "enum": [
+              "interest_capitalised",
+              "interest_paid_monthly",
+              "interest_waived"
+            ],
+            "title": "Treatment",
+            "default": "interest_capitalised"
+          },
+          "frequency": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "quarterly"
+            ],
+            "title": "Frequency",
+            "default": "monthly"
+          }
+        },
+        "type": "object",
+        "required": [
+          "principal_paise",
+          "rate_bps",
+          "tenure_months"
+        ],
+        "title": "LoanPlanIn"
+      },
+      "NearbyResponse": {
+        "properties": {
+          "engine": {
+            "type": "string",
+            "title": "Engine"
+          },
+          "center": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Center"
+          },
+          "radius_km": {
+            "type": "number",
+            "title": "Radius Km"
+          },
+          "partners": {
+            "items": {
+              "$ref": "#/components/schemas/PartnerCard"
+            },
+            "type": "array",
+            "title": "Partners"
+          },
+          "excluded": {
+            "items": {
+              "$ref": "#/components/schemas/ExcludedPartner"
+            },
+            "type": "array",
+            "title": "Excluded"
+          },
+          "cache": {
+            "type": "string",
+            "title": "Cache"
+          },
+          "took_ms": {
+            "type": "number",
+            "title": "Took Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "engine",
+          "center",
+          "radius_km",
+          "partners",
+          "excluded",
+          "cache",
+          "took_ms"
+        ],
+        "title": "NearbyResponse"
+      },
+      "Offer": {
+        "properties": {
+          "rate_bps": {
+            "type": "integer",
+            "title": "Rate Bps"
+          },
+          "max_loan_paise": {
+            "type": "integer",
+            "title": "Max Loan Paise"
+          },
+          "suggested_principal_paise": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Principal Paise"
+          },
+          "default_tenure_months": {
+            "type": "integer",
+            "title": "Default Tenure Months"
+          },
+          "max_tenure_months": {
+            "type": "integer",
+            "title": "Max Tenure Months"
+          },
+          "moratorium_default_months": {
+            "type": "integer",
+            "title": "Moratorium Default Months"
+          },
+          "moratorium_max_months": {
+            "type": "integer",
+            "title": "Moratorium Max Months"
+          },
+          "moratorium_treatment": {
+            "type": "string",
+            "title": "Moratorium Treatment"
+          },
+          "repayment_frequency": {
+            "type": "string",
+            "title": "Repayment Frequency"
+          },
+          "funding_pattern": {
+            "$ref": "#/components/schemas/FundingPattern"
+          },
+          "processing_days": {
+            "type": "integer",
+            "title": "Processing Days"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rate_bps",
+          "max_loan_paise",
+          "suggested_principal_paise",
+          "default_tenure_months",
+          "max_tenure_months",
+          "moratorium_default_months",
+          "moratorium_max_months",
+          "moratorium_treatment",
+          "repayment_frequency",
+          "funding_pattern",
+          "processing_days"
+        ],
+        "title": "Offer"
+      },
+      "OtpRequest": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 10,
+            "title": "Phone",
+            "examples": [
+              "9876500001"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "phone"
+        ],
+        "title": "OtpRequest"
+      },
+      "OtpRequestResponse": {
+        "properties": {
+          "sent": {
+            "type": "boolean",
+            "title": "Sent"
+          },
+          "ttl_seconds": {
+            "type": "integer",
+            "title": "Ttl Seconds"
+          },
+          "channel": {
+            "type": "string",
+            "title": "Channel"
+          },
+          "dev_otp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dev Otp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sent",
+          "ttl_seconds",
+          "channel"
+        ],
+        "title": "OtpRequestResponse"
+      },
+      "OtpVerify": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "maxLength": 16,
+            "minLength": 10,
+            "title": "Phone"
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 8,
+            "minLength": 4,
+            "title": "Code"
+          },
+          "lang": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Lang",
+            "default": "en"
+          }
+        },
+        "type": "object",
+        "required": [
+          "phone",
+          "code"
+        ],
+        "title": "OtpVerify"
+      },
+      "PartnerCard": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "state_code": {
+            "type": "string",
+            "title": "State Code"
+          },
+          "district_code": {
+            "type": "string",
+            "title": "District Code"
+          },
+          "district_name": {
+            "type": "string",
+            "title": "District Name"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lng": {
+            "type": "number",
+            "title": "Lng"
+          },
+          "distance_km": {
+            "type": "number",
+            "title": "Distance Km"
+          },
+          "languages": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Languages"
+          },
+          "documents_needed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Documents Needed"
+          },
+          "open_hours": {
+            "type": "string",
+            "title": "Open Hours"
+          },
+          "contact": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Contact"
+          },
+          "schemes_supported": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Schemes Supported"
+          },
+          "categories_supported": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Categories Supported"
+          },
+          "is_demo": {
+            "type": "boolean",
+            "title": "Is Demo"
+          },
+          "health_score": {
+            "type": "integer",
+            "title": "Health Score"
+          },
+          "health_components": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Health Components"
+          },
+          "avg_sanction_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avg Sanction Days"
+          },
+          "rank_score": {
+            "type": "number",
+            "title": "Rank Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type",
+          "state_code",
+          "district_code",
+          "district_name",
+          "address",
+          "lat",
+          "lng",
+          "distance_km",
+          "languages",
+          "documents_needed",
+          "open_hours",
+          "contact",
+          "schemes_supported",
+          "categories_supported",
+          "is_demo",
+          "health_score",
+          "health_components",
+          "avg_sanction_days",
+          "rank_score"
+        ],
+        "title": "PartnerCard"
+      },
+      "PersonalIn": {
+        "properties": {
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "father_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Father Name"
+          },
+          "dob": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dob"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[6-9]\\d{9}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          }
+        },
+        "type": "object",
+        "title": "PersonalIn"
+      },
+      "PullIn": {
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Application Id"
+          },
+          "doc_type": {
+            "type": "string",
+            "title": "Doc Type"
+          },
+          "consent_token": {
+            "type": "string",
+            "title": "Consent Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "application_id",
+          "doc_type",
+          "consent_token"
+        ],
+        "title": "PullIn"
+      },
+      "QueueItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "tracking_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tracking Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "applicant_name": {
+            "type": "string",
+            "title": "Applicant Name"
+          },
+          "district": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "District"
+          },
+          "scheme_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Code"
+          },
+          "scheme_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Name"
+          },
+          "amount_paise": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount Paise"
+          },
+          "submitted_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Submitted At"
+          },
+          "age_hours": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Hours"
+          },
+          "readiness_score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Readiness Score"
+          },
+          "name_match_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name Match Min"
+          },
+          "submitted_via": {
+            "type": "string",
+            "title": "Submitted Via"
+          },
+          "lang": {
+            "type": "string",
+            "title": "Lang"
+          },
+          "overdue": {
+            "type": "boolean",
+            "title": "Overdue"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tracking_id",
+          "status",
+          "applicant_name",
+          "district",
+          "scheme_code",
+          "scheme_name",
+          "amount_paise",
+          "submitted_at",
+          "age_hours",
+          "readiness_score",
+          "name_match_min",
+          "submitted_via",
+          "lang",
+          "overdue"
+        ],
+        "title": "QueueItem"
+      },
+      "QueueOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QueueItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Counts"
+          },
+          "partner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "counts",
+          "partner_name"
+        ],
+        "title": "QueueOut"
+      },
+      "RankInfo": {
+        "properties": {
+          "position": {
+            "type": "integer",
+            "title": "Position"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "model",
+              "heuristic"
+            ],
+            "title": "Method"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/RankReason"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "features": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Features"
+          }
+        },
+        "type": "object",
+        "required": [
+          "position",
+          "score",
+          "method",
+          "reasons",
+          "features"
+        ],
+        "title": "RankInfo",
+        "description": "Order among eligible schemes only. `method` is `model` (XGBoost + TreeSHAP) or `heuristic` (§13 fallback)."
+      },
+      "RankReason": {
+        "properties": {
+          "feature": {
+            "type": "string",
+            "title": "Feature"
+          },
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "params": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Params",
+            "default": {}
+          },
+          "weight": {
+            "type": "number",
+            "title": "Weight"
+          }
+        },
+        "type": "object",
+        "required": [
+          "feature",
+          "key",
+          "weight"
+        ],
+        "title": "RankReason"
+      },
+      "RankRequest": {
+        "properties": {
+          "applicant": {
+            "$ref": "#/components/schemas/ApplicantFacts"
+          },
+          "scheme_codes": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Codes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "applicant"
+        ],
+        "title": "RankRequest"
+      },
+      "RankResponse": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "model",
+              "heuristic",
+              "none"
+            ],
+            "title": "Method"
+          },
+          "ranked": {
+            "items": {
+              "$ref": "#/components/schemas/RankedScheme"
+            },
+            "type": "array",
+            "title": "Ranked"
+          }
+        },
+        "type": "object",
+        "required": [
+          "method",
+          "ranked"
+        ],
+        "title": "RankResponse"
+      },
+      "RankedScheme": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "position": {
+            "type": "integer",
+            "title": "Position"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/RankReason"
+            },
+            "type": "array",
+            "title": "Reasons"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "position",
+          "score",
+          "reasons"
+        ],
+        "title": "RankedScheme"
+      },
+      "ReadbackIn": {
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "title": "Application Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "application_id"
+        ],
+        "title": "ReadbackIn"
+      },
+      "ReadbackOut": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url"
+          },
+          "tts": {
+            "type": "string",
+            "enum": [
+              "clip",
+              "bhashini",
+              "device"
+            ],
+            "title": "Tts",
+            "default": "device"
+          },
+          "demo_reply": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Demo Reply"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "ReadbackOut"
+      },
+      "ReadbackReplyOut": {
+        "properties": {
+          "intent": {
+            "type": "string",
+            "enum": [
+              "confirm",
+              "correct",
+              "unclear"
+            ],
+            "title": "Intent"
+          },
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field"
+          },
+          "transcript": {
+            "type": "string",
+            "title": "Transcript"
+          },
+          "transcript_engine": {
+            "type": "string",
+            "enum": [
+              "bhashini",
+              "whisper",
+              "sandbox",
+              "typed"
+            ],
+            "title": "Transcript Engine"
+          },
+          "sandbox": {
+            "type": "boolean",
+            "title": "Sandbox",
+            "default": false
+          },
+          "reply_text": {
+            "type": "string",
+            "title": "Reply Text"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Evidence",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "intent",
+          "transcript",
+          "transcript_engine",
+          "reply_text"
+        ],
+        "title": "ReadbackReplyOut"
+      },
+      "ReadinessOut": {
+        "properties": {
+          "score": {
+            "type": "integer",
+            "title": "Score"
+          },
+          "ready": {
+            "type": "boolean",
+            "title": "Ready"
+          },
+          "threshold": {
+            "type": "integer",
+            "title": "Threshold"
+          },
+          "components": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Components"
+          },
+          "blockers": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Blockers"
+          },
+          "fixes": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Fixes"
+          },
+          "name_matches": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Name Matches"
+          },
+          "required_documents": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Required Documents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "ready",
+          "threshold",
+          "components",
+          "blockers",
+          "fixes",
+          "name_matches",
+          "required_documents"
+        ],
+        "title": "ReadinessOut"
+      },
+      "ReviewDocument": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "title": "Document Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "sandbox": {
+            "type": "boolean",
+            "title": "Sandbox"
+          },
+          "fields": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fields"
+          },
+          "issues": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Issues"
+          },
+          "has_image": {
+            "type": "boolean",
+            "title": "Has Image"
+          },
+          "name_match": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name Match"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "type",
+          "source",
+          "status",
+          "verified",
+          "confidence",
+          "sandbox",
+          "fields",
+          "issues",
+          "has_image"
+        ],
+        "title": "ReviewDocument"
+      },
+      "ReviewOut": {
+        "properties": {
+          "application": {
+            "$ref": "#/components/schemas/ApplicationOut"
+          },
+          "applicant": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Applicant"
+          },
+          "scheme": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Scheme"
+          },
+          "finance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Finance"
+          },
+          "documents": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewDocument"
+            },
+            "type": "array",
+            "title": "Documents"
+          },
+          "readiness": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Readiness"
+          },
+          "consent": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Consent"
+          },
+          "audit": {
+            "items": {
+              "$ref": "#/components/schemas/AuditEntry"
+            },
+            "type": "array",
+            "title": "Audit"
+          },
+          "allowed_actions": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "receive",
+                "start_review",
+                "request_documents",
+                "approve",
+                "reject",
+                "disburse"
+              ]
+            },
+            "type": "array",
+            "title": "Allowed Actions"
+          },
+          "reject_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reject Reasons"
+          },
+          "integrity": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Integrity"
+          },
+          "sanction_letter_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sanction Letter Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "application",
+          "applicant",
+          "scheme",
+          "finance",
+          "documents",
+          "readiness",
+          "consent",
+          "audit",
+          "allowed_actions",
+          "reject_reasons",
+          "integrity",
+          "sanction_letter_url"
+        ],
+        "title": "ReviewOut"
+      },
+      "RowOut": {
+        "properties": {
+          "period": {
+            "type": "integer",
+            "title": "Period"
+          },
+          "month": {
+            "type": "integer",
+            "title": "Month"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "opening_paise": {
+            "type": "integer",
+            "title": "Opening Paise"
+          },
+          "payment_paise": {
+            "type": "integer",
+            "title": "Payment Paise"
+          },
+          "interest_paise": {
+            "type": "integer",
+            "title": "Interest Paise"
+          },
+          "principal_paise": {
+            "type": "integer",
+            "title": "Principal Paise"
+          },
+          "closing_paise": {
+            "type": "integer",
+            "title": "Closing Paise"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period",
+          "month",
+          "kind",
+          "opening_paise",
+          "payment_paise",
+          "interest_paise",
+          "principal_paise",
+          "closing_paise"
+        ],
+        "title": "RowOut"
+      },
+      "SanctionTerms": {
+        "properties": {
+          "amount_paise": {
+            "type": "integer",
+            "maximum": 10000000000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Amount Paise"
+          },
+          "rate_bps": {
+            "type": "integer",
+            "maximum": 3600.0,
+            "minimum": 0.0,
+            "title": "Rate Bps"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "maximum": 240.0,
+            "minimum": 3.0,
+            "title": "Tenure Months"
+          },
+          "moratorium_months": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Moratorium Months",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount_paise",
+          "rate_bps",
+          "tenure_months"
+        ],
+        "title": "SanctionTerms"
+      },
+      "ScanIn": {
+        "properties": {
+          "jws": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 20,
+            "title": "Jws"
+          }
+        },
+        "type": "object",
+        "required": [
+          "jws"
+        ],
+        "title": "ScanIn"
+      },
+      "ScanOut": {
+        "properties": {
+          "application_id": {
+            "type": "string",
+            "title": "Application Id"
+          },
+          "tracking_id": {
+            "type": "string",
+            "title": "Tracking Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "signature_valid": {
+            "type": "boolean",
+            "title": "Signature Valid"
+          },
+          "file_unchanged": {
+            "type": "boolean",
+            "title": "File Unchanged"
+          },
+          "issued_at": {
+            "type": "string",
+            "title": "Issued At"
+          },
+          "received_now": {
+            "type": "boolean",
+            "title": "Received Now"
+          }
+        },
+        "type": "object",
+        "required": [
+          "application_id",
+          "tracking_id",
+          "status",
+          "signature_valid",
+          "file_unchanged",
+          "issued_at",
+          "received_now"
+        ],
+        "title": "ScanOut"
+      },
+      "SchemeResult": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Name"
+          },
+          "apex_corp": {
+            "type": "string",
+            "title": "Apex Corp"
+          },
+          "loan_type": {
+            "type": "string",
+            "title": "Loan Type"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "rule_version_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rule Version Id"
+          },
+          "source_url": {
+            "type": "string",
+            "title": "Source Url"
+          },
+          "verified_on": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verified On"
+          },
+          "needs_verification": {
+            "type": "boolean",
+            "title": "Needs Verification"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "eligible",
+              "ineligible",
+              "needs_info"
+            ],
+            "title": "Status"
+          },
+          "trace": {
+            "items": {
+              "$ref": "#/components/schemas/TraceRow"
+            },
+            "type": "array",
+            "title": "Trace"
+          },
+          "failed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Failed"
+          },
+          "missing": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing"
+          },
+          "near_miss": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TraceRow"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "documents_required": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Documents Required"
+          },
+          "channel_partner_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Channel Partner Types"
+          },
+          "offer": {
+            "$ref": "#/components/schemas/Offer"
+          },
+          "rank": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RankInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "apex_corp",
+          "loan_type",
+          "version",
+          "rule_version_id",
+          "source_url",
+          "verified_on",
+          "needs_verification",
+          "status",
+          "trace",
+          "failed",
+          "missing",
+          "near_miss",
+          "documents_required",
+          "channel_partner_types",
+          "offer"
+        ],
+        "title": "SchemeResult"
+      },
+      "Sentence": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "params": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/TypedValue"
+            },
+            "type": "object",
+            "title": "Params",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "title": "Sentence"
+      },
+      "SessionIn": {
+        "properties": {
+          "lang": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Lang",
+            "description": "one of en, hi, bn, mr, te, ta, gu, ur, kn, or, ml, pa, as",
+            "default": "en"
+          }
+        },
+        "type": "object",
+        "title": "SessionIn"
+      },
+      "SessionUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "partner_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Id"
+          },
+          "csc_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Csc Id"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "preferred_lang": {
+            "type": "string",
+            "title": "Preferred Lang",
+            "default": "en"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role"
+        ],
+        "title": "SessionUser"
+      },
+      "SlotOut": {
+        "properties": {
+          "value": {
+            "title": "Value"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method"
+          },
+          "display": {
+            "type": "string",
+            "title": "Display"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "confidence",
+          "method",
+          "display"
+        ],
+        "title": "SlotOut"
+      },
+      "SplitIn": {
+        "properties": {
+          "apex_bps": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 0.0,
+            "title": "Apex Bps"
+          },
+          "partner_bps": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 0.0,
+            "title": "Partner Bps"
+          },
+          "beneficiary_bps": {
+            "type": "integer",
+            "maximum": 10000.0,
+            "minimum": 0.0,
+            "title": "Beneficiary Bps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "apex_bps",
+          "partner_bps",
+          "beneficiary_bps"
+        ],
+        "title": "SplitIn"
+      },
+      "SplitOut": {
+        "properties": {
+          "project_cost_paise": {
+            "type": "integer",
+            "title": "Project Cost Paise"
+          },
+          "apex_paise": {
+            "type": "integer",
+            "title": "Apex Paise"
+          },
+          "partner_paise": {
+            "type": "integer",
+            "title": "Partner Paise"
+          },
+          "beneficiary_paise": {
+            "type": "integer",
+            "title": "Beneficiary Paise"
+          },
+          "apex_bps": {
+            "type": "integer",
+            "title": "Apex Bps"
+          },
+          "partner_bps": {
+            "type": "integer",
+            "title": "Partner Bps"
+          },
+          "beneficiary_bps": {
+            "type": "integer",
+            "title": "Beneficiary Bps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_cost_paise",
+          "apex_paise",
+          "partner_paise",
+          "beneficiary_paise",
+          "apex_bps",
+          "partner_bps",
+          "beneficiary_bps"
+        ],
+        "title": "SplitOut"
+      },
+      "SubmitOut": {
+        "properties": {
+          "tracking_id": {
+            "type": "string",
+            "title": "Tracking Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "qr_png_url": {
+            "type": "string",
+            "title": "Qr Png Url"
+          },
+          "loan_file_pdf_url": {
+            "type": "string",
+            "title": "Loan File Pdf Url"
+          },
+          "qr_token": {
+            "type": "string",
+            "title": "Qr Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tracking_id",
+          "status",
+          "qr_png_url",
+          "loan_file_pdf_url",
+          "qr_token"
+        ],
+        "title": "SubmitOut"
+      },
+      "SystemStatus": {
+        "properties": {
+          "env": {
+            "type": "string",
+            "title": "Env"
+          },
+          "demo_mode": {
+            "type": "boolean",
+            "title": "Demo Mode"
+          },
+          "database": {
+            "type": "string",
+            "title": "Database"
+          },
+          "cache": {
+            "type": "string",
+            "title": "Cache"
+          },
+          "queue": {
+            "type": "string",
+            "title": "Queue"
+          },
+          "storage": {
+            "type": "string",
+            "title": "Storage"
+          },
+          "adapters": {
+            "items": {
+              "$ref": "#/components/schemas/AdapterStatus"
+            },
+            "type": "array",
+            "title": "Adapters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "env",
+          "demo_mode",
+          "database",
+          "cache",
+          "queue",
+          "storage",
+          "adapters"
+        ],
+        "title": "SystemStatus"
+      },
+      "TimelineItem": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "at": {
+            "type": "string",
+            "title": "At"
+          },
+          "note_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note Key"
+          },
+          "params": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Params",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "at"
+        ],
+        "title": "TimelineItem"
+      },
+      "TokenResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type"
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In"
+          },
+          "user": {
+            "$ref": "#/components/schemas/SessionUser"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in",
+          "user"
+        ],
+        "title": "TokenResponse"
+      },
+      "TraceRow": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "unknown"
+            ],
+            "title": "Result"
+          },
+          "inputs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Inputs"
+          },
+          "logic": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Logic"
+          },
+          "sentence": {
+            "$ref": "#/components/schemas/Sentence"
+          },
+          "change": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Sentence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "result",
+          "inputs",
+          "logic",
+          "sentence"
+        ],
+        "title": "TraceRow"
+      },
+      "TrackOut": {
+        "properties": {
+          "tracking_id": {
+            "type": "string",
+            "title": "Tracking Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "scheme_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scheme Code"
+          },
+          "partner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Name"
+          },
+          "partner_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Type"
+          },
+          "expected_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Days"
+          },
+          "timeline": {
+            "items": {
+              "$ref": "#/components/schemas/TimelineItem"
+            },
+            "type": "array",
+            "title": "Timeline"
+          },
+          "next_step_key": {
+            "type": "string",
+            "title": "Next Step Key"
+          },
+          "requested_documents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Requested Documents"
+          },
+          "rejection_reason_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rejection Reason Code"
+          },
+          "lang": {
+            "type": "string",
+            "title": "Lang"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tracking_id",
+          "status",
+          "scheme_code",
+          "partner_name",
+          "partner_type",
+          "expected_days",
+          "timeline",
+          "next_step_key",
+          "requested_documents",
+          "rejection_reason_code",
+          "lang"
+        ],
+        "title": "TrackOut"
+      },
+      "TypedValue": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "TypedValue"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VoiceTurnOut": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "lang": {
+            "type": "string",
+            "title": "Lang"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "intake",
+              "clarify",
+              "confirm",
+              "done"
+            ],
+            "title": "State"
+          },
+          "turn": {
+            "type": "integer",
+            "title": "Turn"
+          },
+          "max_turns": {
+            "type": "integer",
+            "title": "Max Turns"
+          },
+          "transcript": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript"
+          },
+          "transcript_engine": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "bhashini",
+                  "whisper",
+                  "sandbox",
+                  "typed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript Engine"
+          },
+          "sandbox": {
+            "type": "boolean",
+            "title": "Sandbox",
+            "default": false
+          },
+          "reply_text": {
+            "type": "string",
+            "title": "Reply Text"
+          },
+          "reply_audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reply Audio Url"
+          },
+          "tts": {
+            "type": "string",
+            "enum": [
+              "clip",
+              "bhashini",
+              "device"
+            ],
+            "title": "Tts",
+            "default": "device"
+          },
+          "slots": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SlotOut"
+            },
+            "type": "object",
+            "title": "Slots"
+          },
+          "asked": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Asked"
+          },
+          "changed": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Changed",
+            "default": []
+          },
+          "clarify": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClarifyOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "handoff": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "rules",
+                  "form"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handoff"
+          },
+          "district_hq": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DistrictHQ"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "filled": {
+            "type": "integer",
+            "title": "Filled"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "elapsed_ms": {
+            "type": "integer",
+            "title": "Elapsed Ms"
+          },
+          "processing_ms": {
+            "type": "integer",
+            "title": "Processing Ms"
+          },
+          "demo_utterances": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Demo Utterances",
+            "default": []
+          },
+          "asr_available": {
+            "type": "boolean",
+            "title": "Asr Available",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id",
+          "lang",
+          "state",
+          "turn",
+          "max_turns",
+          "reply_text",
+          "slots",
+          "asked",
+          "filled",
+          "total",
+          "elapsed_ms",
+          "processing_ms"
+        ],
+        "title": "VoiceTurnOut"
+      }
+    }
+  }
+}

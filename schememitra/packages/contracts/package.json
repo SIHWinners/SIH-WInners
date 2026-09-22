@@ -1,0 +1,31 @@
+{
+  "name": "@sm/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./finance": "./src/finance.ts",
+    "./rules": "./src/rules.ts",
+    "./sms": "./src/sms-codec.ts",
+    "./offline": "./src/offline.ts",
+    "./tracking": "./src/tracking.ts",
+    "./api": "./src/generated/api.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "generate": "openapi-typescript openapi.json --default-non-nullable false -o src/generated/api.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@sm/config": "workspace:*",
+    "@types/node": "^22.20.2",
+    "openapi-typescript": "^7.13.0",
+    "typescript": "~5.9.3",
+    "vitest": "^5.0.1"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  }
+}

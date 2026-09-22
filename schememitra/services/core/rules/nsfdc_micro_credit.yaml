@@ -1,0 +1,49 @@
+scheme_code: NSFDC_MICRO_CREDIT
+apex_corp: NSFDC
+version: 1
+loan_type: micro_finance
+name:
+  en: NSFDC Micro Credit Finance
+  hi: NSFDC माइक्रो क्रेडिट फ़ाइनेंस
+  bn: NSFDC মাইক্রো ক্রেডিট ঋণ
+  mr: NSFDC मायक्रो क्रेडिट वित्त
+  te: NSFDC మైక్రో క్రెడిట్ రుణం
+  ta: NSFDC நுண் கடன் நிதி
+  gu: NSFDC માઇક્રો ક્રેડિટ ફાઇનાન્સ
+  ur: NSFDC مائیکرو کریڈٹ فنانس
+  kn: NSFDC ಮೈಕ್ರೋ ಕ್ರೆಡಿಟ್ ಹಣಕಾಸು
+  or: NSFDC ମାଇକ୍ରୋ କ୍ରେଡିଟ୍ ଋଣ
+  ml: NSFDC മൈക്രോ ക്രെഡിറ്റ് വായ്പ
+  pa: NSFDC ਮਾਈਕ੍ਰੋ ਕ੍ਰੈਡਿਟ ਫ਼ਾਈਨਾਂਸ
+  as: NSFDC মাইক্ৰ' ক্ৰেডিট ঋণ
+source_url: https://nsfdc.nic.in/scheme
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Small loans through SCAs/SHGs for SC entrepreneurs; units up to Rs 1.40 lakh (loans up to about
+  Rs 1.25 lakh per public summaries). 90:10 apex:SCA share and 6.5% rate follow the SchemeMitra pitch
+  parameters and must be confirmed with NSFDC before the pilot.
+effective_from: 2026-04-01
+params:
+  categories: [sc]
+  income_limit_paise: 50000000
+  max_loan_paise: 12500000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: income, kind: income_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+  - { type: shg_certificate, required: false }
+loan_limits: { min_paise: 1000000, max_paise: 12500000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 1000, beneficiary_bps: 0 }
+interest:
+  slabs:
+    - { upto_paise: 12500000, rate_bps: 650 }
+moratorium: { default_months: 3, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 36, max_tenure_months: 36, frequency: monthly }
+channel_partner_types: [SCA, RRB, NBFC_MFI]
+processing_days: 15

@@ -1,0 +1,50 @@
+scheme_code: NSFDC_EDUCATION_LOAN
+apex_corp: NSFDC
+version: 1
+loan_type: education_loan
+name:
+  en: NSFDC Educational Loan
+  hi: NSFDC शिक्षा ऋण
+  bn: NSFDC শিক্ষা ঋণ
+  mr: NSFDC शैक्षणिक कर्ज
+  te: NSFDC విద్యా రుణం
+  ta: NSFDC கல்விக் கடன்
+  gu: NSFDC શૈક્ષણિક લોન
+  ur: NSFDC تعلیمی قرض
+  kn: NSFDC ಶೈಕ್ಷಣಿಕ ಸಾಲ
+  or: NSFDC ଶୈକ୍ଷିକ ଋଣ
+  ml: NSFDC വിദ്യാഭ്യാസ വായ്പ
+  pa: NSFDC ਵਿਦਿਅਕ ਕਰਜ਼ਾ
+  as: NSFDC শৈক্ষিক ঋণ
+source_url: https://nsfdc.nic.in/scheme
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Education loan for SC students in recognised courses. Limit, rate and moratorium (course period plus
+  six months, capped here at 60 months) are illustrative pending confirmation.
+effective_from: 2026-04-01
+params:
+  categories: [sc]
+  income_limit_paise: 50000000
+  max_loan_paise: 100000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: income, kind: income_max }
+  - { id: admission, kind: course_admitted }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: admission_letter, required: true }
+  - { type: marksheet, required: true }
+  - { type: bank_passbook, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 100000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 1000, beneficiary_bps: 0 }
+interest:
+  slabs:
+    - { upto_paise: 100000000, rate_bps: 650 }
+moratorium: { default_months: 12, max_months: 60, treatment: interest_capitalised }
+repayment: { default_tenure_months: 60, max_tenure_months: 120, frequency: monthly }
+channel_partner_types: [SCA, PSB]
+processing_days: 25

@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+@import '@sm/ui/tokens.css';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+html {
+  font-size: calc(100% * var(--sm-text-scale));
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--sm-bg);
+  color: var(--sm-text);
+  font-family: var(--sm-font), 'Noto Sans', system-ui, sans-serif;
+  line-height: 1.45;
+}
+
+/* Indic scripts need extra vertical room for matras and conjuncts. */
+:lang(hi), :lang(bn), :lang(mr), :lang(te), :lang(ta), :lang(gu), :lang(kn), :lang(or), :lang(ml),
+:lang(pa), :lang(as), :lang(ur) {
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 3px solid var(--sm-focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .sm-card {
+    background: var(--sm-surface);
+    border: 1px solid var(--sm-border);
+    border-radius: var(--sm-radius-lg);
+  }
+  .sm-tap {
+    min-height: var(--sm-touch);
+    min-width: var(--sm-touch);
+  }
+  .sm-enter {
+    animation: sm-enter var(--sm-motion) ease-out both;
+  }
+  .sm-skeleton {
+    background: linear-gradient(90deg, var(--sm-surface-alt) 25%, var(--sm-border) 50%, var(--sm-surface-alt) 75%);
+    background-size: 200% 100%;
+    animation: sm-shimmer 1.2s linear infinite;
+    border-radius: var(--sm-radius-md);
+  }
+}
+
+@keyframes sm-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes sm-shimmer {
+  to { background-position: -200% 0; }
+}
+
+.tabular { font-variant-numeric: tabular-nums; }

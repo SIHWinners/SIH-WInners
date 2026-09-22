@@ -1,0 +1,23 @@
+{
+  "model": "xgboost rank:ndcg (LambdaMART)",
+  "version": "20260917",
+  "features": [
+    "loan_fit",
+    "emi_to_income",
+    "interest_advantage_pp",
+    "doc_readiness",
+    "partners_25km",
+    "partner_health",
+    "hist_sanction_rate",
+    "processing_days"
+  ],
+  "hist_sanction_prior_by_loan_type": {
+    "micro_finance": 0.65,
+    "term_loan": 0.475,
+    "women_scheme": 0.625,
+    "group_loan": 0.575,
+    "education_loan": 0.6,
+    "mudra": 0.4
+  },
+  "synthetic": true
+}

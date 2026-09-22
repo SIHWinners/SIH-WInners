@@ -1,0 +1,90 @@
+{
+  "trained_at": "2026-09-17T13:05:46+00:00",
+  "seed": 2026,
+  "rows": 49872,
+  "applicants": 10000,
+  "test_applicants": 2000,
+  "rounds": 250,
+  "params": {
+    "objective": "rank:ndcg",
+    "eval_metric": "ndcg@3",
+    "eta": 0.08,
+    "max_depth": 4,
+    "min_child_weight": 5,
+    "subsample": 0.9,
+    "colsample_bytree": 0.9,
+    "lambdarank_pair_method": "topk",
+    "lambdarank_num_pair_per_sample": 3,
+    "seed": 2026,
+    "nthread": 4,
+    "tree_method": "hist",
+    "monotone_constraints": "(-1,-1,1,1,1,1,1,-1)"
+  },
+  "ndcg@3": {
+    "model": 0.8773,
+    "heuristic": 0.8596,
+    "rate_first": 0.7592,
+    "random": 0.7329
+  },
+  "top1_latent_sanction": {
+    "model": {
+      "overall": 0.7657,
+      "gender": {
+        "female": 0.7515,
+        "male": 0.7823
+      },
+      "category": {
+        "minority": 0.791,
+        "obc": 0.7769,
+        "safai_karamchari": 0.6846,
+        "sc": 0.787,
+        "st": 0.7209
+      },
+      "parity_gender": 0.961,
+      "parity_category": 0.865
+    },
+    "heuristic": {
+      "overall": 0.7711,
+      "gender": {
+        "female": 0.7569,
+        "male": 0.7876
+      },
+      "category": {
+        "minority": 0.8,
+        "obc": 0.7839,
+        "safai_karamchari": 0.6872,
+        "sc": 0.7926,
+        "st": 0.7218
+      },
+      "parity_gender": 0.961,
+      "parity_category": 0.859
+    },
+    "rate_first": {
+      "overall": 0.6417,
+      "gender": {
+        "female": 0.6331,
+        "male": 0.6518
+      },
+      "category": {
+        "minority": 0.6888,
+        "obc": 0.653,
+        "safai_karamchari": 0.5825,
+        "sc": 0.6569,
+        "st": 0.5898
+      },
+      "parity_gender": 0.971,
+      "parity_category": 0.846
+    }
+  },
+  "shap_additivity": true,
+  "feature_importance_gain": {
+    "emi_to_income": 20.8,
+    "loan_fit": 16.12,
+    "partners_25km": 8.87,
+    "interest_advantage_pp": 5.13,
+    "hist_sanction_rate": 2.16,
+    "doc_readiness": 2.14,
+    "partner_health": 2.13,
+    "processing_days": 2.04
+  }
+}

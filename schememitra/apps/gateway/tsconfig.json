@@ -1,0 +1,5 @@
+{
+  "extends": "@sm/config/tsconfig.base.json",
+  "compilerOptions": { "outDir": "dist", "types": ["node"], "lib": ["ES2022"] },
+  "include": ["src", "test"]
+}

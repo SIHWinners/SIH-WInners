@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schememitra.dev/schemas/scheme-rule.json",
+  "title": "SchemeMitra scheme rule file",
+  "type": "object",
+  "required": ["scheme_code", "apex_corp", "version", "loan_type", "name", "source_url", "needs_verification", "params", "eligibility", "documents_required", "loan_limits", "funding_pattern", "interest", "moratorium", "repayment", "channel_partner_types"],
+  "additionalProperties": false,
+  "properties": {
+    "scheme_code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,47}$" },
+    "apex_corp": { "enum": ["NSFDC", "NBCFDC", "NSKFDC", "NDFDC", "MUDRA"] },
+    "version": { "type": "integer", "minimum": 1 },
+    "loan_type": { "enum": ["micro_finance", "term_loan", "education_loan", "group_loan", "women_scheme"] },
+    "name": {
+      "type": "object",
+      "required": ["en", "hi", "bn", "mr", "te", "ta", "gu", "ur", "kn", "or", "ml", "pa", "as"],
+      "additionalProperties": { "type": "string", "minLength": 2 }
+    },
+    "source_url": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "verified_on": { "type": ["string", "null"], "format": "date" },
+    "needs_verification": { "type": "boolean" },
+    "notes": { "type": "string" },
+    "effective_from": { "type": "string", "format": "date" },
+    "params": { "type": "object" },
+    "eligibility": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "kind": { "enum": ["income_max", "project_cost_max", "loan_max", "category_in", "age_between", "disability_min", "women_only", "shg_member", "course_admitted", "state_in", "custom"] },
+          "param": { "type": "string" },
+          "logic": { "type": "object" },
+          "fields": { "type": "array", "items": { "type": "string" } },
+          "pass_key": { "type": "string" },
+          "fail_key": { "type": "string" }
+        }
+      }
+    },
+    "documents_required": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "required"],
+        "additionalProperties": false,
+        "properties": {
+          "type": { "enum": ["aadhaar", "caste_certificate", "income_certificate", "disability_certificate", "bank_passbook", "marksheet", "project_quotation", "admission_letter", "shg_certificate"] },
+          "required": { "type": "boolean" },
+          "validity_months": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "loan_limits": {
+      "type": "object",
+      "required": ["min_paise", "max_paise"],
+      "properties": { "min_paise": { "type": "integer", "minimum": 0 }, "max_paise": { "type": "integer", "minimum": 1 } }
+    },
+    "funding_pattern": {
+      "type": "object",
+      "required": ["apex_bps", "partner_bps", "beneficiary_bps"],
+      "properties": {
+        "apex_bps": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "partner_bps": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "beneficiary_bps": { "type": "integer", "minimum": 0, "maximum": 10000 },
+        "subsidy_bps": { "type": "integer", "minimum": 0, "maximum": 10000 }
+      }
+    },
+    "interest": {
+      "type": "object",
+      "required": ["slabs"],
+      "properties": {
+        "slabs": {
+          "type": "array", "minItems": 1,
+          "items": { "type": "object", "required": ["upto_paise", "rate_bps"], "properties": { "upto_paise": { "type": "integer" }, "rate_bps": { "type": "integer", "minimum": 0, "maximum": 3000 } } }
+        },
+        "women_rebate_bps": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "moratorium": {
+      "type": "object",
+      "required": ["default_months", "max_months", "treatment"],
+      "properties": {
+        "default_months": { "type": "integer", "minimum": 0 },
+        "max_months": { "type": "integer", "minimum": 0, "maximum": 60 },
+        "treatment": { "enum": ["interest_capitalised", "interest_paid_monthly", "interest_waived"] }
+      }
+    },
+    "repayment": {
+      "type": "object",
+      "required": ["default_tenure_months", "max_tenure_months", "frequency"],
+      "properties": {
+        "default_tenure_months": { "type": "integer", "minimum": 1 },
+        "max_tenure_months": { "type": "integer", "minimum": 1, "maximum": 180 },
+        "frequency": { "enum": ["monthly", "quarterly"] }
+      }
+    },
+    "channel_partner_types": { "type": "array", "items": { "enum": ["SCA", "PSB", "RRB", "NBFC_MFI"] }, "minItems": 1 },
+    "processing_days": { "type": "integer", "minimum": 1 }
+  }
+}

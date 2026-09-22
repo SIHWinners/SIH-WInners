@@ -1,0 +1,34 @@
+{
+  "name": "schememitra",
+  "private": true,
+  "description": "SchemeMitra — AI-assisted scheme matchmaking for marginalized entrepreneurs (SIH 2026, PS 26092)",
+  "license": "Apache-2.0",
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/make.mjs dev",
+    "seed": "node scripts/make.mjs seed",
+    "test": "node scripts/make.mjs test",
+    "demo": "node scripts/make.mjs demo",
+    "reset": "node scripts/make.mjs reset",
+    "models": "node scripts/make.mjs models",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test:js": "turbo run test",
+    "format": "prettier --write .",
+    "contracts": "node scripts/make.mjs contracts",
+    "check:i18n": "node packages/i18n/scripts/check-keys.mjs",
+    "check:contrast": "node packages/ui/scripts/check-contrast.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6",
+    "turbo": "^2.10.13",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.70.0"
+  }
+}

@@ -1,0 +1,52 @@
+scheme_code: NSFDC_TERM_LOAN
+apex_corp: NSFDC
+version: 1
+loan_type: term_loan
+name:
+  en: NSFDC Term Loan
+  hi: NSFDC टर्म लोन
+  bn: NSFDC মেয়াদি ঋণ
+  mr: NSFDC मुदत कर्ज
+  te: NSFDC టర్మ్ రుణం
+  ta: NSFDC காலக் கடன்
+  gu: NSFDC ટર્મ લોન
+  ur: NSFDC ٹرم لون
+  kn: NSFDC ಅವಧಿ ಸಾಲ
+  or: NSFDC ଅବଧି ଋଣ
+  ml: NSFDC ടേം ലോൺ
+  pa: NSFDC ਟਰਮ ਲੋਨ
+  as: NSFDC ম্যাদী ঋণ
+source_url: https://nsfdc.nic.in/scheme
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  Published parameters (NSFDC scheme pages via search summary): SC persons with family income up to
+  Rs 5 lakh; units above Rs 1.40 lakh up to Rs 50 lakh; loan up to 90% of project cost (max Rs 45 lakh);
+  NSFDC charges SCAs 4%, beneficiary pays 8%; quarterly repayment within 7 years including a 6-month
+  moratorium. Quarterly frequency is modelled; confirm split of the remaining 10% with the SCA.
+effective_from: 2026-04-01
+params:
+  categories: [sc]
+  income_limit_paise: 50000000
+  max_project_cost_paise: 500000000
+  max_loan_paise: 450000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: income, kind: income_max }
+  - { id: project_cost, kind: project_cost_max }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: income_certificate, required: true, validity_months: 12 }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: true }
+loan_limits: { min_paise: 14000000, max_paise: 450000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 500, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 450000000, rate_bps: 800 }
+moratorium: { default_months: 6, max_months: 12, treatment: interest_capitalised }
+repayment: { default_tenure_months: 60, max_tenure_months: 84, frequency: monthly }
+channel_partner_types: [SCA, PSB, RRB]
+processing_days: 35

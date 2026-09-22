@@ -1,0 +1,46 @@
+scheme_code: NSKFDC_SANITATION_ENTERPRISE
+apex_corp: NSKFDC
+version: 1
+loan_type: term_loan
+name:
+  en: NSKFDC Sanitation Enterprise Loan
+  hi: NSKFDC स्वच्छता उद्यम ऋण
+  bn: NSKFDC পরিচ্ছন্নতা উদ্যোগ ঋণ
+  mr: NSKFDC स्वच्छता उद्योग कर्ज
+  te: NSKFDC పారిశుద్ధ్య సంస్థ రుణం
+  ta: NSKFDC துப்புரவுத் தொழில் கடன்
+  gu: NSKFDC સ્વચ્છતા ઉદ્યોગ લોન
+  ur: NSKFDC صفائی کاروبار قرض
+  kn: NSKFDC ನೈರ್ಮಲ್ಯ ಉದ್ಯಮ ಸಾಲ
+  or: NSKFDC ସ୍ୱଚ୍ଛତା ଉଦ୍ୟୋଗ ଋଣ
+  ml: NSKFDC ശുചിത്വ സംരംഭ വായ്പ
+  pa: NSKFDC ਸਫ਼ਾਈ ਉਦਯੋਗ ਕਰਜ਼ਾ
+  as: NSKFDC পৰিচ্ছন্নতা উদ্যোগ ঋণ
+source_url: https://nskfdc.nic.in/
+verified_on: 2026-09-16
+needs_verification: true
+notes: >
+  For Safai Karamcharis, manual scavengers and their dependants to buy sanitation equipment or start an
+  enterprise. No income ceiling is applied. Limits, rate and 90:5:5 split are illustrative. Verify.
+effective_from: 2026-04-01
+params:
+  categories: [safai_karamchari]
+  max_loan_paise: 150000000
+eligibility:
+  - { id: category, kind: category_in }
+  - { id: loan_amount, kind: loan_max }
+documents_required:
+  - { type: aadhaar, required: true }
+  - { type: caste_certificate, required: true }
+  - { type: bank_passbook, required: true }
+  - { type: project_quotation, required: true }
+loan_limits: { min_paise: 1000000, max_paise: 150000000 }
+funding_pattern: { apex_bps: 9000, partner_bps: 500, beneficiary_bps: 500 }
+interest:
+  slabs:
+    - { upto_paise: 50000000, rate_bps: 650 }
+    - { upto_paise: 150000000, rate_bps: 750 }
+moratorium: { default_months: 6, max_months: 6, treatment: interest_capitalised }
+repayment: { default_tenure_months: 60, max_tenure_months: 84, frequency: monthly }
+channel_partner_types: [SCA, PSB, RRB]
+processing_days: 30
