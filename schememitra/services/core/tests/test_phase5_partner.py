@@ -227,3 +227,16 @@ async def test_reject_needs_a_coded_reason(client) -> None:  # type: ignore[no-u
     res = await client.post(path, json={"action": "reject", "reason_code": "income_proof_invalid"}, headers=officer)
     assert res.status_code == 200 and res.json()["application"]["rejection_reason_code"] == "income_proof_invalid"
     assert CONSOLE_FEED and "Not approved" not in CONSOLE_FEED[0]["body"]  # Gujarati SMS, not English
+
+
+async def test_rendering_or_reviewing_never_moves_the_application_back(client) -> None:  # type: ignore[no-untyped-def]
+    """Regression: the loan-file render job runs in its own session while the submit request is
+    still committing. It used to re-score readiness and push a submitted file back to `ready`."""
+    citizen = await login(client, PERSONAS["savitaben"].phone)
+    app = await _submitted_savitaben(client, citizen)
+    officer = await login(client, DAHOD_OFFICER)
+    assert (await client.get(f"/v1/applications/{app['id']}/loan-file.pdf", headers=citizen)).status_code == 200
+    assert (await client.get(f"/v1/partner/applications/{app['id']}", headers=officer)).status_code == 200
+    assert (await client.get(f"/v1/applications/{app['id']}", headers=citizen)).json()["status"] == "submitted"
+    assert (await client.post(f"/v1/partner/applications/{app['id']}/decision", json={"action": "receive"},
+                              headers=officer)).status_code == 200

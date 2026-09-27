@@ -25,7 +25,9 @@ async def render_and_store(application_id: str) -> str:
         pdf = await asyncio.to_thread(render_loan_file, view, qr)
         key = f"applications/{app.id}/loan-file.pdf"
         await storage.put(key, pdf)
-        await session.commit()
+        # Rendering is read-only: roll back so this job can never write application state
+        # (it runs inline in the local profile, concurrently with the submitting request).
+        await session.rollback()
         return key
 
 

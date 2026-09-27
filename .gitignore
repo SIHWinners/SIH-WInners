@@ -1,0 +1,25 @@
+# Portable PostgreSQL/pgAdmin used only for local verification (ADR-017).
+# These are third-party binaries, not project source; install them locally instead.
+tools/
+
+# Dependencies and build output
+node_modules/
+.venv/
+.next/
+dist/
+build/
+__pycache__/
+*.pyc
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+.mypy_cache/
+.turbo/
+
+# Local runtime data, secrets and test artefacts
+.env
+.env.local
+schememitra/services/core/var/
+schememitra/ml/data/
+schememitra/apps/e2e/test-results/
+schememitra/apps/e2e/playwright-report/

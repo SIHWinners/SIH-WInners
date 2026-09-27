@@ -165,7 +165,10 @@ async def documents_of(session: AsyncSession, app: Application) -> dict[str, Doc
     return {d.type: d for d in rows}  # the latest upload of each type wins
 
 
-async def readiness(session: AsyncSession, app: Application, applicant: Applicant) -> dict[str, Any]:
+async def readiness(session: AsyncSession, app: Application, applicant: Applicant, *, persist: bool = True) -> dict[str, Any]:
+    """Score the file. `persist=False` keeps this a pure read: rendering the loan file or a
+    partner opening the file must never move the application's status (a background render
+    once raced a submit and put the file back to `ready`)."""
     _, rules = await _scheme_result(session, _facts_of(applicant), app.eligibility_trace["scheme_code"])
     docs = await documents_of(session, app)
     views = {t_: DocView(t_, {k: v for k, v in d.ocr_json.get("fields", {}).items() if k != "aadhaar_hash"},
@@ -175,11 +178,12 @@ async def readiness(session: AsyncSession, app: Application, applicant: Applican
         ReadinessApplicant(applicant.full_name_enc, applicant.father_name_enc, applicant.dob_enc, app.project_cost_paise),
         get_settings().readiness_threshold,
     )
-    app.completeness_score = result["score"]
-    if app.status in ("draft", "ready"):
-        target = "ready" if result["ready"] else "draft"
-        if target != app.status:
-            _history(app, target, None)
+    if persist:
+        app.completeness_score = result["score"]
+        if app.status in ("draft", "ready"):
+            target = "ready" if result["ready"] else "draft"
+            if target != app.status:
+                _history(app, target, None)
     return {**result, "required_documents": rules.doc["documents_required"]}
 
 
@@ -311,7 +315,7 @@ async def loan_file_view(session: AsyncSession, app: Application, applicant: App
     partner = await session.get(Partner, app.partner_id)
     result, rules = await _scheme_result(session, _facts_of(applicant), app.eligibility_trace["scheme_code"])
     docs = await documents_of(session, app)
-    ready = await readiness(session, app, applicant)
+    ready = await readiness(session, app, applicant, persist=False)
     consent = await session.get(Consent, applicant.consent_id) if applicant.consent_id else None
     phone = applicant.phone_enc or ""
     finance = app.finance_summary

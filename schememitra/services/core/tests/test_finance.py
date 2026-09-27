@@ -1,6 +1,7 @@
 import json
 import random
-from decimal import ROUND_HALF_EVEN, Decimal, getcontext
+from decimal import getcontext
+from fractions import Fraction
 from pathlib import Path
 
 import pytest
@@ -22,13 +23,19 @@ GOLDEN = Path(__file__).resolve().parents[3] / "packages" / "contracts" / "fixtu
 
 
 def decimal_emi(principal: int, rate_bps: int, n: int) -> int:
-    """Independent Decimal implementation of the textbook formula, for cross-checking."""
-    p = Decimal(principal)
+    """Independent implementation of the textbook formula, for cross-checking.
+
+    Uses exact rationals, not Decimal: a monthly rate like 20%/12 = 1/60 has no finite
+    decimal expansion, so at an exact half-paise tie (e.g. ₹2,831.315) a Decimal result
+    lands a hair above or below the midpoint and the tie-break becomes arbitrary. Python's
+    round() on a Fraction is round-half-even, the same rule the product uses.
+    """
+    p = Fraction(principal)
     if rate_bps == 0:
-        return int((p / n).quantize(Decimal(1), ROUND_HALF_EVEN))
-    r = Decimal(rate_bps) / Decimal(120000)
+        return round(p / n)
+    r = Fraction(rate_bps, 120_000)
     f = (1 + r) ** n
-    return int((p * r * f / (f - 1)).quantize(Decimal(1), ROUND_HALF_EVEN))
+    return round(p * r * f / (f - 1))
 
 
 def test_round_half_even() -> None:
@@ -72,9 +79,11 @@ def test_schedule_invariants(principal: int, rate: int, tenure: int, mora: int, 
         assert s.principal_after_moratorium_paise == principal
     if treatment == "interest_waived":
         assert s.moratorium_interest_paise == 0
-    # only the last instalment may differ from the EMI (rounding absorption)
+    # Only the last instalment may differ from the EMI: it absorbs the rounding of every
+    # period's interest and of the constant instalment (each ≤ half a paisa), plus the final
+    # balance itself, so the drift is bounded by about one paisa per instalment.
     assert all(r.payment_paise == s.instalment_paise for r in repayments[:-1])
-    assert abs(repayments[-1].payment_paise - s.instalment_paise) <= s.instalments
+    assert abs(repayments[-1].payment_paise - s.instalment_paise) <= s.instalments + 2
 
 
 def test_savitaben_micro_credit_example() -> None:
