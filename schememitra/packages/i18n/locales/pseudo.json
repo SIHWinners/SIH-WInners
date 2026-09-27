@@ -79,7 +79,8 @@
     "how_3": "⟦Sënd yôür fïlë tô á nëárby lëndër ánd tráck ït by SMS······················⟧",
     "privacy_note": "⟦Yôür dëtáïls árë üsëd ônly tô fïnd ánd ápply fôr á lôán schëmë. Yôü cán dëlëtë thëm ány tïmë.······································⟧",
     "choose_language": "⟦Chôôsë yôür lángüágë········⟧",
-    "assisted": "⟦CSC / Grám Sëwák sïgn ïn··········⟧"
+    "assisted": "⟦CSC / Grám Sëwák sïgn ïn··········⟧",
+    "install_app": "⟦Instáll ápp·····⟧"
   },
   "intake": {
     "title": "⟦Åbôüt yôü····⟧",
@@ -652,7 +653,30 @@
       "none": "⟦Nô áctïôns lëft fôr thïs fïlë.············⟧"
     },
     "scan_other_lender": "⟦Thïs fïlë wás sënt tô ánôthër lëndër.···············⟧",
-    "lender_only": "⟦Önly thë lëndër cán mákë thïs dëcïsïôn.················⟧"
+    "lender_only": "⟦Önly thë lëndër cán mákë thïs dëcïsïôn.················⟧",
+    "csc": {
+      "print": "⟦Prïnt slïps·····⟧",
+      "slips_title": "⟦Åpplïcátïôn slïps fôr tôdáy···········⟧",
+      "empty": "⟦Nô ápplïcánts yët tôdáy.··········⟧",
+      "count_all": "⟦Tôdáy··⟧",
+      "count_draft": "⟦Nôt sënt····⟧",
+      "count_sent": "⟦Wïth lëndër·····⟧",
+      "count_decided": "⟦Dëcïdëd···⟧",
+      "consent": "⟦Cônsënt···⟧",
+      "consent_otp": "⟦ÖTP··⟧",
+      "consent_thumb": "⟦Thümb ïmprëssïôn·······⟧",
+      "consent_voice": "⟦Vôïcë··⟧",
+      "consent_missing": "⟦Nôt tákën····⟧",
+      "slip_sms": "⟦Tô chëck thë státüs látër, sënd STÅTUS {tid} by SMS.·····················⟧",
+      "assisted_note": "⟦Yôü árë fïllïng thïs fôr thë ápplïcánt. Thëïr cônsënt ïs rëcôrdëd ágáïnst yôür ôpërátôr ID.·····································⟧",
+      "thumb_consent": "⟦Åpplïcánt gávë cônsënt ïn përsôn (thümb ïmprëssïôn ôn thë pápër slïp)····························⟧",
+      "checklist": "⟦Bëfôrë yôü stárt·······⟧",
+      "check_sit": "⟦Thë ápplïcánt ïs hërë wïth yôü············⟧",
+      "check_explain": "⟦Yôü ëxpláïnëd whát SchëmëMïtrá dôës ánd thát ït ïs frëë······················⟧",
+      "check_consent": "⟦Yôü rëád thë cônsënt nôtïcë álôüd ïn thëïr lángüágë·····················⟧",
+      "check_phone": "⟦Yôü hávë thë ápplïcánt's ôwn môbïlë nümbër (nôt yôürs)······················⟧",
+      "start": "⟦Stárt á nëw fïlë·······⟧"
+    }
   },
   "ranking": {
     "why_first": "⟦Why thïs cômës fïrst········⟧",

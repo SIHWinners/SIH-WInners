@@ -17,8 +17,29 @@ export async function resolveLocale(): Promise<LocaleCode> {
   return DEFAULT_LOCALE;
 }
 
+type Messages = Record<string, unknown>;
+
+/** English underneath every locale. Citizen strings are translated into all 13 languages, but
+ * officer-facing screens are English + Hindi only (ADR-012); without a base, a partner officer
+ * or CSC operator whose phone is set to, say, Urdu would see raw message keys. */
+function withEnglishBase(base: Messages, locale: Messages): Messages {
+  const out: Messages = { ...base };
+  for (const [key, value] of Object.entries(locale)) {
+    const current = out[key];
+    out[key] =
+      value && typeof value === 'object' && !Array.isArray(value) && current && typeof current === 'object'
+        ? withEnglishBase(current as Messages, value as Messages)
+        : value;
+  }
+  return out;
+}
+
 export default getRequestConfig(async () => {
   const locale = await resolveLocale();
-  const messages = (await import(`../../../../packages/i18n/locales/${locale}.json`)).default;
+  const english = (await import('../../../../packages/i18n/locales/en.json')).default as Messages;
+  const messages =
+    locale === 'en'
+      ? english
+      : withEnglishBase(english, (await import(`../../../../packages/i18n/locales/${locale}.json`)).default as Messages);
   return { locale, messages, timeZone: 'Asia/Kolkata' };
 });

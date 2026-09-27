@@ -14,6 +14,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.5.25",
     "@next/eslint-plugin-next": "^15.5.25",
+    "@serwist/next": "^9.5.12",
     "@sm/config": "workspace:*",
     "@tailwindcss/postcss": "^4.3.3",
     "@testing-library/jest-dom": "^7.0.1",
@@ -27,6 +28,8 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "jsdom": "^30.0.1",
     "postcss": "^8.5.28",
+    "serwist": "^9.5.12",
+    "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9.3",
     "vitest": "^5.0.1"

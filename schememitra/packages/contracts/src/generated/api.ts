@@ -863,6 +863,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/csc/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Queue
+         * @description Applicants this operator helped, newest first — the counter's day view (C15).
+         */
+        get: operations["queue_v1_csc_queue_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1098,6 +1118,44 @@ export interface components {
         ConsentTokenIn: {
             /** Code */
             code: string;
+        };
+        /** CscItem */
+        CscItem: {
+            /** Id */
+            id: string;
+            /** Tracking Id */
+            tracking_id: string | null;
+            /** Applicant Name */
+            applicant_name: string;
+            /** Phone Masked */
+            phone_masked: string | null;
+            /** Status */
+            status: string;
+            /** Scheme Name */
+            scheme_name: string | null;
+            /** Partner Name */
+            partner_name: string | null;
+            /** Amount Paise */
+            amount_paise: number | null;
+            /** Readiness Score */
+            readiness_score: number | null;
+            /** Consent Method */
+            consent_method: string | null;
+            /** Created At */
+            created_at: string;
+            /** Lang */
+            lang: string;
+        };
+        /** CscQueueOut */
+        CscQueueOut: {
+            /** Items */
+            items: components["schemas"]["CscItem"][];
+            /** Counts */
+            counts: {
+                [key: string]: number;
+            };
+            /** Operator */
+            operator: string | null;
         };
         /** DecisionIn */
         DecisionIn: {
@@ -3723,6 +3781,37 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    queue_v1_csc_queue_get: {
+        parameters: {
+            query?: {
+                days?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CscQueueOut"];
                 };
             };
             /** @description Validation Error */

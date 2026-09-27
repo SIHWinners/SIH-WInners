@@ -280,7 +280,14 @@ function DistrictPicker({ questionId }: { questionId: string }) {
         setDistricts(data);
         await db.kv.put({ key: cacheKey, value: JSON.stringify(data), updatedAt: Date.now() });
       } catch {
-        if (!cached && !cancelled) setFailed(true);
+        // Offline: the districts also travel in the cached rule bundle, so a phone that has
+        // ever loaded the app can still answer this question.
+        if (cached || cancelled) return;
+        const bundle = await db.kv.get('rules-bundle');
+        const all = bundle ? (JSON.parse(bundle.value).districts as District[] | undefined) : undefined;
+        const usable = all?.filter((d) => !state || d.state_code === state);
+        if (usable?.length) setDistricts(usable);
+        else setFailed(true);
       }
     })();
     return () => {

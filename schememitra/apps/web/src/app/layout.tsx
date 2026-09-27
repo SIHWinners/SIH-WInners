@@ -8,6 +8,7 @@ import { resolveLocale } from '@/i18n/request';
 
 import { fontStackFor, latinFontClass } from './fonts';
 import './globals.css';
+import { OfflineStatus } from '@/components/offline-status';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('common');
@@ -50,6 +51,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       </head>
       <body className="min-h-dvh antialiased">
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <OfflineStatus />
           {children}
         </NextIntlClientProvider>
       </body>

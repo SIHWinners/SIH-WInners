@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { DocumentsPanel } from '@/components/apply/documents-panel';
 import { ReadbackCard } from '@/components/apply/readback-card';
+import { SmsFallback } from '@/components/apply/sms-fallback';
 import { ApplyShell, NextStepCard } from '@/components/apply/shell';
 import { Icon } from '@/components/icons';
 import { Button, ButtonLink, Card, cx, Notice, Skeleton } from '@/components/ui';
@@ -25,6 +26,7 @@ export default function SendPage() {
   const draft = useDraft();
   const words = useMoneyWords();
   const [role, setRole] = useState<string | null>(null);
+  const [online, setOnline] = useState(true);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [readiness, setReadiness] = useState<Readiness | null>(null);
   const [agreed, setAgreed] = useState(false);
@@ -34,6 +36,16 @@ export default function SendPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => setRole(clientRole()), []);
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    update();
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+    return () => {
+      window.removeEventListener('online', update);
+      window.removeEventListener('offline', update);
+    };
+  }, []);
   const result = draft.evaluation?.results.find((r) => r.code === draft.schemeCode) ?? null;
   const ready = draft.hydrated && result && draft.plan && draft.partner;
 
@@ -94,9 +106,16 @@ export default function SendPage() {
         api.POST('/v1/applications/{application_id}/consent', {
           params: { path: { application_id: id } },
           body: {
-            method: voiceEvidence ? 'voice' : 'otp',
+            // An operator filling this in at a counter records a thumb impression on the paper
+            // slip against their own operator ID; the citizen still gets the SMS.
+            method: voiceEvidence ? 'voice' : role === 'csc_operator' ? 'thumb' : 'otp',
             language: locale,
-            evidence: { otp_verified: true, readback_text: summary, ...(voiceEvidence ?? {}) },
+            evidence: {
+              otp_verified: role !== 'csc_operator',
+              readback_text: summary,
+              ...(role === 'csc_operator' ? { confirmed_by: 'operator' } : {}),
+              ...(voiceEvidence ?? {}),
+            },
           },
         }),
       );
@@ -156,6 +175,7 @@ export default function SendPage() {
       ) : null}
 
       {syncError ? <Notice tone="danger">{t(syncError as never)}</Notice> : null}
+      {!online ? <SmsFallback /> : null}
 
       {signedIn && draft.applicationId ? (
         <>
@@ -184,6 +204,11 @@ export default function SendPage() {
 
       <Card className="flex flex-col gap-3">
         <h2 className="text-lg font-bold">{t('send.consent_title')}</h2>
+        {role === 'csc_operator' ? (
+          <Notice tone="warning" icon="info" data-testid="assisted-note">
+            {t('officer.csc.assisted_note')}
+          </Notice>
+        ) : null}
         <p>{t('send.consent_short')}</p>
         <details className="text-sm text-muted">
           <summary className="cursor-pointer font-semibold text-brand">{t('common.help')}</summary>
@@ -191,7 +216,7 @@ export default function SendPage() {
         </details>
         <label className="sm-tap flex cursor-pointer items-center gap-3 rounded-lg border border-border-strong px-3">
           <input type="checkbox" className="size-6 accent-[var(--sm-brand)]" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} data-testid="consent-agree" />
-          <span className="font-semibold">{t('send.consent_agree')}</span>
+          <span className="font-semibold">{role === 'csc_operator' ? t('officer.csc.thumb_consent') : t('send.consent_agree')}</span>
         </label>
         <p className="flex items-center gap-2 text-sm font-semibold text-success-ink">
           <Icon name="check" size={16} /> {t('common.free_service')}

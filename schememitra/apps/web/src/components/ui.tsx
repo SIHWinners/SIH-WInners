@@ -192,9 +192,15 @@ export const Field = forwardRef<HTMLInputElement, FieldProps>(function Field(
   );
 });
 
-export function Notice({ tone = 'brand', icon = 'info', title, children }: { tone?: Tone; icon?: IconName; title?: string; children: ReactNode }) {
+export function Notice({
+  tone = 'brand',
+  icon = 'info',
+  title,
+  children,
+  ...rest
+}: { tone?: Tone; icon?: IconName; title?: string; children: ReactNode } & Record<`data-${string}`, string>) {
   return (
-    <div className={cx('flex gap-3 rounded-lg p-3.5', TONES[tone])} role={tone === 'danger' ? 'alert' : 'status'}>
+    <div className={cx('flex gap-3 rounded-lg p-3.5', TONES[tone])} role={tone === 'danger' ? 'alert' : 'status'} {...rest}>
       <Icon name={icon} size={20} className="mt-0.5 shrink-0" />
       <div className="text-sm leading-relaxed">
         {title ? <p className="font-semibold">{title}</p> : null}

@@ -79,7 +79,8 @@
     "how_3": "Send your file to a nearby lender and track it by SMS",
     "privacy_note": "Your details are used only to find and apply for a loan scheme. You can delete them any time.",
     "choose_language": "Choose your language",
-    "assisted": "CSC / Gram Sewak sign in"
+    "assisted": "CSC / Gram Sewak sign in",
+    "install_app": "Install app"
   },
   "intake": {
     "title": "About you",
@@ -652,7 +653,30 @@
       "none": "No actions left for this file."
     },
     "scan_other_lender": "This file was sent to another lender.",
-    "lender_only": "Only the lender can make this decision."
+    "lender_only": "Only the lender can make this decision.",
+    "csc": {
+      "print": "Print slips",
+      "slips_title": "Application slips for today",
+      "empty": "No applicants yet today.",
+      "count_all": "Today",
+      "count_draft": "Not sent",
+      "count_sent": "With lender",
+      "count_decided": "Decided",
+      "consent": "Consent",
+      "consent_otp": "OTP",
+      "consent_thumb": "Thumb impression",
+      "consent_voice": "Voice",
+      "consent_missing": "Not taken",
+      "slip_sms": "To check the status later, send STATUS {tid} by SMS.",
+      "assisted_note": "You are filling this for the applicant. Their consent is recorded against your operator ID.",
+      "thumb_consent": "Applicant gave consent in person (thumb impression on the paper slip)",
+      "checklist": "Before you start",
+      "check_sit": "The applicant is here with you",
+      "check_explain": "You explained what SchemeMitra does and that it is free",
+      "check_consent": "You read the consent notice aloud in their language",
+      "check_phone": "You have the applicant's own mobile number (not yours)",
+      "start": "Start a new file"
+    }
   },
   "ranking": {
     "why_first": "Why this comes first",

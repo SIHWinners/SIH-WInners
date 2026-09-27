@@ -125,9 +125,15 @@ class RuleSet:
     schemes: dict[str, SchemeRules]
 
     def bundle(self) -> dict[str, Any]:
+        """Everything a phone needs to work with no connection: the published rules and the
+        district reference data the intake asks for (claims C13, C14)."""
+        from app.modules.routing.districts import DISTRICTS
+
         schemes = [s.to_bundle() for s in sorted(self.schemes.values(), key=lambda s: s.code)]
-        canonical = json.dumps(schemes, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
-        return {"etag": hashlib.sha256(canonical.encode()).hexdigest()[:32], "schemes": schemes}
+        districts = [{"code": d.code, "name": d.name, "state_code": d.state_code, "lat": d.lat, "lng": d.lng,
+                      "pincode": d.pincode} for d in DISTRICTS]
+        canonical = json.dumps([schemes, districts], sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+        return {"etag": hashlib.sha256(canonical.encode()).hexdigest()[:32], "schemes": schemes, "districts": districts}
 
 
 _cache: RuleSet | None = None

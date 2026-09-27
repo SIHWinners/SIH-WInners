@@ -1,0 +1,26 @@
+{
+  "name": "SchemeMitra — scheme matchmaking for entrepreneurs",
+  "short_name": "SchemeMitra",
+  "description": "Find the right government loan scheme, work out the repayments, and apply to a lender near you — in your language, and on a slow connection.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F7F8FB",
+  "theme_color": "#0B3D91",
+  "lang": "en",
+  "dir": "auto",
+  "categories": ["finance", "government", "productivity"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Track my application", "url": "/track" },
+    { "name": "Start by speaking", "url": "/apply/voice" }
+  ]
+}

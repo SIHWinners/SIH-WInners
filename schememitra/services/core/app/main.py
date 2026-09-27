@@ -17,7 +17,7 @@ from app.logging import configure_logging, get_logger
 log = get_logger("app")
 
 # Order matters only for the OpenAPI document layout.
-ROUTER_MODULES = ["system", "auth", "eligibility", "finance", "routing", "documents", "applications", "voice", "ranking", "partner", "notify"]
+ROUTER_MODULES = ["system", "auth", "eligibility", "finance", "routing", "documents", "applications", "voice", "ranking", "partner", "notify", "csc"]
 
 
 @asynccontextmanager

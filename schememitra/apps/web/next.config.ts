@@ -1,9 +1,18 @@
 import bundleAnalyzer from '@next/bundle-analyzer';
+import withSerwistInit from '@serwist/next';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const withAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === '1' });
+// The service worker is built from src/app/sw.ts. It is disabled in `next dev` so a stale
+// cache never hides a code change while developing; `make demo` runs a production build.
+const withSerwist = withSerwistInit({
+  swSrc: 'src/app/sw.ts',
+  swDest: 'public/sw.js',
+  disable: process.env.NODE_ENV === 'development',
+  reloadOnOnline: true,
+});
 
 const gateway = process.env.GATEWAY_URL ?? 'http://127.0.0.1:8080';
 const wsUrl = process.env.NEXT_PUBLIC_WS_URL ?? 'ws://localhost:8080/ws';
@@ -50,4 +59,4 @@ const config: NextConfig = {
   },
 };
 
-export default withAnalyzer(withNextIntl(config));
+export default withSerwist(withAnalyzer(withNextIntl(config)));
