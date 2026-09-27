@@ -1,0 +1,169 @@
+[
+  {
+    "name": "savitaben_micro_finance",
+    "ref": "A1",
+    "facts": {
+      "full_name": "Savitaben Rathwa",
+      "age": 34,
+      "gender": "female",
+      "social_category": "sc",
+      "state_code": "GJ",
+      "district_code": "GJ-DAH",
+      "pincode": "389151",
+      "annual_family_income_rupees": 120000,
+      "education_level": "primary",
+      "business_type": "dairy",
+      "project_cost_rupees": 60000,
+      "loan_needed_rupees": 60000,
+      "shg_member": true,
+      "existing_loans": false,
+      "has_disability": false,
+      "phone": "9000000001",
+      "lang": "gu"
+    },
+    "wire": [
+      "SM1*A111*n=Savitaben Rathwa;a=34;g=f;c=sc;s=GJ;d=GJ-DAH;p=389151;i=120000;e=primary;w=dairy;k=60000;l=60000;sh=1;x=0;dis=0;ph=9000000001;lg=gu*12Q1"
+    ],
+    "decoded": {
+      "full_name": "Savitaben Rathwa",
+      "age": 34,
+      "gender": "female",
+      "social_category": "sc",
+      "state_code": "GJ",
+      "district_code": "GJ-DAH",
+      "pincode": "389151",
+      "annual_family_income_rupees": 120000,
+      "education_level": "primary",
+      "business_type": "dairy",
+      "project_cost_rupees": 60000,
+      "loan_needed_rupees": 60000,
+      "shg_member": true,
+      "existing_loans": false,
+      "has_disability": false,
+      "phone": "9000000001",
+      "lang": "gu"
+    },
+    "parts": 1,
+    "chars": [
+      147
+    ],
+    "segments": [
+      1
+    ]
+  },
+  {
+    "name": "kavya_education_loan",
+    "ref": "7Z",
+    "facts": {
+      "full_name": "Kavya Selvam",
+      "age": 19,
+      "gender": "female",
+      "social_category": "obc",
+      "state_code": "TN",
+      "district_code": "TN-MDU",
+      "pincode": "625001",
+      "annual_family_income_rupees": 150000,
+      "education_level": "higher_secondary",
+      "business_type": "education",
+      "project_cost_rupees": 240000,
+      "loan_needed_rupees": 200000,
+      "shg_member": false,
+      "existing_loans": false,
+      "phone": "9000000003",
+      "lang": "ta"
+    },
+    "wire": [
+      "SM1*7Z11*n=Kavya Selvam;a=19;g=f;c=ob;s=TN;d=TN-MDU;p=625001;i=150000;e=higher_secondary;w=education;k=240000;l=200000;sh=0;x=0;ph=9000000003;lg=ta*0WVE"
+    ],
+    "decoded": {
+      "full_name": "Kavya Selvam",
+      "age": 19,
+      "gender": "female",
+      "social_category": "obc",
+      "state_code": "TN",
+      "district_code": "TN-MDU",
+      "pincode": "625001",
+      "annual_family_income_rupees": 150000,
+      "education_level": "higher_secondary",
+      "business_type": "education",
+      "project_cost_rupees": 240000,
+      "loan_needed_rupees": 200000,
+      "shg_member": false,
+      "existing_loans": false,
+      "phone": "9000000003",
+      "lang": "ta"
+    },
+    "parts": 1,
+    "chars": [
+      152
+    ],
+    "segments": [
+      1
+    ]
+  },
+  {
+    "name": "minimal",
+    "ref": "00",
+    "facts": {
+      "age": 41,
+      "district_code": "RJ-BAR",
+      "loan_needed_rupees": 400000,
+      "lang": "hi"
+    },
+    "wire": [
+      "SM1*0011*a=41;d=RJ-BAR;l=400000;lg=hi*12FQ"
+    ],
+    "decoded": {
+      "age": 41,
+      "district_code": "RJ-BAR",
+      "loan_needed_rupees": 400000,
+      "lang": "hi"
+    },
+    "parts": 1,
+    "chars": [
+      42
+    ],
+    "segments": [
+      1
+    ]
+  },
+  {
+    "name": "status_lookup",
+    "wire": [
+      "STATUS SM-GJ-26-K7Q2MX9"
+    ],
+    "expect": {
+      "kind": "status",
+      "tracking_id": "SM-GJ-26-K7Q2MX9"
+    }
+  },
+  {
+    "name": "help",
+    "wire": [
+      "HELP"
+    ],
+    "expect": {
+      "kind": "help"
+    }
+  },
+  {
+    "name": "bad_checksum",
+    "wire": [
+      "SM1*B211*a=30*FFFF"
+    ],
+    "expect": {
+      "kind": "unknown",
+      "reason": "checksum"
+    }
+  },
+  {
+    "name": "future_version",
+    "wire": [
+      "SM9*A112*a=30*0000"
+    ],
+    "expect": {
+      "kind": "unknown",
+      "reason": "version"
+    }
+  }
+]

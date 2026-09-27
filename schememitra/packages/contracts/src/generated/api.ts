@@ -802,6 +802,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/sms/inbound": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Sms Inbound
+         * @description Called by the gateway's SMS webhook. Reassembles multi-part messages, then answers
+         *     STATUS lookups and creates SMS applications (claims C13, C14).
+         */
+        post: operations["sms_inbound_v1_sms_inbound_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/ivr/next": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Ivr Next
+         * @description IVR stub: the words the voice line reads back for a tracking ID.
+         */
+        post: operations["ivr_next_v1_ivr_next_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/sms/console": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Sms Console
+         * @description Messages the console SMS adapter 'sent', newest last — the demo's SMS phone (SANDBOX).
+         */
+        get: operations["sms_console_v1_admin_sms_console_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1307,6 +1368,73 @@ export interface components {
         HTTPValidationError: {
             /** Detail */
             detail?: components["schemas"]["ValidationError"][];
+        };
+        /** InboundSmsIn */
+        InboundSmsIn: {
+            /** From */
+            from: string;
+            /** Text */
+            text: string;
+            /**
+             * Provider
+             * @default console
+             * @enum {string}
+             */
+            provider?: "console" | "msg91" | "twilio";
+        };
+        /** InboundSmsOut */
+        InboundSmsOut: {
+            /**
+             * Understood
+             * @enum {string}
+             */
+            understood: "apply" | "status" | "help" | "partial" | "unknown";
+            /** Created */
+            created?: boolean | null;
+            /** Found */
+            found?: boolean | null;
+            /** Tracking Id */
+            tracking_id?: string | null;
+            /** Reply Key */
+            reply_key?: string | null;
+            /** Body */
+            body?: string | null;
+            /** Segments */
+            segments?: number | null;
+            /** Ref */
+            ref?: string | null;
+            /** Received */
+            received?: number[] | null;
+            /** Expected */
+            expected?: number | null;
+            /** Reason */
+            reason?: string | null;
+        };
+        /** IvrIn */
+        IvrIn: {
+            /** Tracking Id */
+            tracking_id?: string | null;
+            /**
+             * Lang
+             * @default hi
+             */
+            lang?: string;
+        };
+        /** IvrOut */
+        IvrOut: {
+            /** Say */
+            say: string;
+            /**
+             * Expect
+             * @enum {string}
+             */
+            expect: "tracking_id" | "end";
+            /** Lang */
+            lang: string;
+            /** Status */
+            status?: string | null;
+            /** Partner */
+            partner?: string | null;
         };
         /** LoanPlanIn */
         LoanPlanIn: {
@@ -3496,6 +3624,105 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ReviewOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sms_inbound_v1_sms_inbound_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InboundSmsIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InboundSmsOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    ivr_next_v1_ivr_next_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IvrIn"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IvrOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    sms_console_v1_admin_sms_console_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */

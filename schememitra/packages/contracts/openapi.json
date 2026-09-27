@@ -2000,6 +2000,136 @@
           }
         }
       }
+    },
+    "/v1/sms/inbound": {
+      "post": {
+        "tags": [
+          "notify"
+        ],
+        "summary": "Sms Inbound",
+        "description": "Called by the gateway's SMS webhook. Reassembles multi-part messages, then answers\nSTATUS lookups and creates SMS applications (claims C13, C14).",
+        "operationId": "sms_inbound_v1_sms_inbound_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InboundSmsIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboundSmsOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ivr/next": {
+      "post": {
+        "tags": [
+          "notify"
+        ],
+        "summary": "Ivr Next",
+        "description": "IVR stub: the words the voice line reads back for a tracking ID.",
+        "operationId": "ivr_next_v1_ivr_next_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IvrIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IvrOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/sms/console": {
+      "get": {
+        "tags": [
+          "notify"
+        ],
+        "summary": "Sms Console",
+        "description": "Messages the console SMS adapter 'sent', newest last — the demo's SMS phone (SANDBOX).",
+        "operationId": "sms_console_v1_admin_sms_console_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Sms Console V1 Admin Sms Console Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3551,6 +3681,242 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "InboundSmsIn": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "maxLength": 20,
+            "title": "From"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Text"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "console",
+              "msg91",
+              "twilio"
+            ],
+            "title": "Provider",
+            "default": "console"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "text"
+        ],
+        "title": "InboundSmsIn"
+      },
+      "InboundSmsOut": {
+        "properties": {
+          "understood": {
+            "type": "string",
+            "enum": [
+              "apply",
+              "status",
+              "help",
+              "partial",
+              "unknown"
+            ],
+            "title": "Understood"
+          },
+          "created": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created"
+          },
+          "found": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Found"
+          },
+          "tracking_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tracking Id"
+          },
+          "reply_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reply Key"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "segments": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Segments"
+          },
+          "ref": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ref"
+          },
+          "received": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Received"
+          },
+          "expected": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "understood"
+        ],
+        "title": "InboundSmsOut"
+      },
+      "IvrIn": {
+        "properties": {
+          "tracking_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 24
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tracking Id"
+          },
+          "lang": {
+            "type": "string",
+            "maxLength": 8,
+            "title": "Lang",
+            "default": "hi"
+          }
+        },
+        "type": "object",
+        "title": "IvrIn"
+      },
+      "IvrOut": {
+        "properties": {
+          "say": {
+            "type": "string",
+            "title": "Say"
+          },
+          "expect": {
+            "type": "string",
+            "enum": [
+              "tracking_id",
+              "end"
+            ],
+            "title": "Expect"
+          },
+          "lang": {
+            "type": "string",
+            "title": "Lang"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "partner": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner"
+          }
+        },
+        "type": "object",
+        "required": [
+          "say",
+          "expect",
+          "lang"
+        ],
+        "title": "IvrOut"
       },
       "LoanPlanIn": {
         "properties": {
