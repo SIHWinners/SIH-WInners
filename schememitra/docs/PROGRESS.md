@@ -1,7 +1,7 @@
 # SchemeMitra — build progress
 
-**Current phase:** 5 — Partner portal & ML ranking
-**Next task:** 5.1
+**Current phase:** 6 — Offline, SMS, mobile, CSC
+**Next task:** 6.1
 **Resume:** read this file, `docs/DECISIONS.md`, then continue from the first unticked item.
 
 ```bash
@@ -71,14 +71,14 @@ node scripts/make.mjs dev    # or `make dev` where make exists
 - [x] 4.8 Phase 4 gate: persona 1 Gujarati voice flow ≤ 3 min (E2E)
 
 ### Phase 5 — Partner portal & ML ranking
-- [ ] 5.1 Partner portal: queue table, QR scan (camera + paste), JWS verify
-- [ ] 5.2 Split-view file review, name-match score, audit sidebar, keyboard shortcuts
-- [ ] 5.3 Decisions: request docs / approve + sanction letter / reject with codes / disburse
-- [ ] 5.4 WebSocket status push + SMS in citizen language (≤ 2 s)
-- [ ] 5.5 Synthetic data generator (50k rows) + XGBoost LambdaMART training + NDCG@3
-- [ ] 5.6 TreeSHAP reasons → plain-language templates; heuristic fallback
-- [ ] 5.7 Model card with fairness parity check
-- [ ] 5.8 Phase 5 gate: partner decision → citizen timeline + SMS
+- [x] 5.1 Partner portal: queue table, QR scan (camera + paste), JWS verify
+- [x] 5.2 Split-view file review, name-match score, audit sidebar, keyboard shortcuts
+- [x] 5.3 Decisions: request docs / approve + sanction letter / reject with codes / disburse
+- [x] 5.4 WebSocket status push + SMS in citizen language (≤ 2 s)
+- [x] 5.5 Synthetic data generator (50k rows) + XGBoost LambdaMART training + NDCG@3
+- [x] 5.6 TreeSHAP reasons → plain-language templates; heuristic fallback
+- [x] 5.7 Model card with fairness parity check
+- [x] 5.8 Phase 5 gate: partner decision → citizen timeline + SMS
 
 ### Phase 6 — Offline, SMS, mobile, CSC
 - [ ] 6.1 PWA service worker (Serwist), offline drafts, background sync, install prompt
@@ -114,7 +114,7 @@ node scripts/make.mjs dev    # or `make dev` where make exists
 - [x] C6 voice read-back · [x] C7 speak & scan · [x] C8 rule check · [x] C9 QR + SMS tracking · [x] C10 DigiLocker
 - [x] C11 name variations · [ ] C12 shared-phone hygiene · [ ] C13 offline + SMS · [ ] C14 2G/3G · [ ] C15 CSC mode
 - [x] C16 pre-check · [x] C17 3-min voice · [x] C18 loan file PDF · [ ] C19 policy dashboard · [ ] C20 open/free/pilot
-- [ ] C21 sanction stays with partner
+- [x] C21 sanction stays with partner
 
 ## Phase log
 
@@ -153,3 +153,12 @@ node scripts/make.mjs dev    # or `make dev` where make exists
 - Web: /apply/voice with mic (energy VAD, 15 s cap), live "form filling itself" panel, timer and turn counter, demo chips, typed fallback, clarify Yes/No; spoken read-back on the send page with voice confirmation stored as text-only consent evidence (method `voice`).
 - Fixes: uvicorn reload on Windows hung on keep-alive connections (`--timeout-graceful-shutdown 3`); storage retries `os.replace` when Windows holds a reader lock; phone from OTP sign-in fills the draft for voice applicants.
 - **Gate:** core pytest 147 passed; ruff + mypy clean; i18n 486 keys × 13 locales; contracts 55 + gateway 7 vitest passed; Playwright persona 1 (Gujarati, first turn by microphone, read-back confirmed by voice, submitted) passed in 49.4 s, persona 2 still green.
+
+### 2026-09-27 — Phase 5 complete
+- Ranking: XGBoost LambdaMART trained on 49,872 synthetic applicant–scheme rows (`ml/synth.py`, `ml/train.py`, seeded, reproducible). NDCG@3 0.877 model vs 0.860 heuristic vs 0.759 rate-first vs 0.733 random. Monotone constraints keep instalment burden, over-limit asks and processing time from ever raising a score. TreeSHAP contributions become plain-language reasons, and a reason is shown only when its sentence is literally true of that scheme.
+- Fairness: sanction-rate parity of the top recommendation is 0.96 across gender and 0.87 across category (four-fifths rule), measured and written into `ml/MODEL_CARD.md` by the training script; gender and caste are not model features.
+- Ranking never changes who is eligible — the rule engine decides that, and a test asserts the eligible set is identical before and after ranking. Chaos toggle `ranking_model` falls back to the transparent weighted scorer.
+- Partner portal: queue with tabs/search/live WebSocket refresh, QR scan (camera via BarcodeDetector, or paste) verifying the Ed25519 signature and that this lender is the addressee, split-view review (papers + OCR fields + name match, rule trace, money, consent evidence, hash-chained audit trail, integrity check), and decisions — receive, start review, request papers, approve with a generated bilingual sanction letter, reject with a coded reason, mark disbursed. Keyboard shortcuts J/K/A/R/D.
+- C21 enforced in the status machine: sanction, reject and disburse are refused for every role except the lender's own officer — including SchemeMitra admins — and the E2E asserts an admin sees no such buttons.
+- **Fixed a real bug:** the background loan-file render ran `readiness()` in its own session and could push a just-submitted file back to `ready`, hiding it from the lender's queue. Readiness is now pure unless asked to persist, and the render job rolls back.
+- **Gate:** core pytest 155 passed (5 consecutive runs, no flakes); ruff + mypy clean; i18n 578 keys × 13 locales; Playwright 3 specs green, including lender decision → citizen tracking page updating live within 2 s and an SMS in Hindi.

@@ -36,6 +36,9 @@ export async function signInWithDemoOtp(page: Page, phone: string) {
 }
 
 export async function expectNoSeriousA11yViolations(page: Page, disable: string[] = []) {
+  // Cards fade in; a colour sampled mid-animation is half-transparent and fails contrast
+  // for a few hundred milliseconds. Let animations finish so we audit the settled page.
+  await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished.catch(() => undefined))));
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).disableRules(disable).analyze();
   const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
   expect(serious.map((v) => `${v.id}: ${v.nodes.map((n) => `${n.target.join(' ')} — ${n.failureSummary ?? ''}`).join(' | ')}`)).toEqual([]);
